@@ -1,0 +1,203 @@
+I"so<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍。
+<!--more--></p>
+
+<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
+
+<p>在这篇文章中，我将介绍<code class="language-plaintext highlighter-rouge">Native Stack Navigator</code>的使用以及<code class="language-plaintext highlighter-rouge">Drawer Navigation</code>的使用。</p>
+
+<h2 id="native-stack-navigator">Native Stack Navigator</h2>
+<h3 id="基本用法">基本用法</h3>
+<p>如果不想显示任何导航栏，<code class="language-plaintext highlighter-rouge">stack navigator</code>无疑是个最好的选择，这是最基本的页面导航，它维护了一个栈结构，进入一个页面相当于在栈里压入了一个页面，返回操作相当于在栈中弹出一个页面。在<a href="https://reactnavigation.org/docs/native-stack-navigator/">官方文档</a>给出了基本的用法：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createNativeStackNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Profile</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Profile</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ProfileScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Notifications</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Settings</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nx">MyStack</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MyStack</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>这里<code class="language-plaintext highlighter-rouge">createNativeStackNavigator</code>创建了一个<code class="language-plaintext highlighter-rouge">stack</code>,在不同的页面之间，点击<code class="language-plaintext highlighter-rouge">Button</code>触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面，如果我们使用的是真机的话，后退手势也可以返回上一级页面。实现的效果如下：
+<img src="../assets/my_pics/stack%2000_00_00-00_00_30.gif" alt="show" /></p>
+
+<p>同样，这里默认还是会显示header的，如果我们不想显示header的话，也可以在<code class="language-plaintext highlighter-rouge">Stack.Navigator</code>里面添加<code class="language-plaintext highlighter-rouge">headerShown: false</code>属性，原则上第一个页面是打开的默认页面，我们也可以使用<code class="language-plaintext highlighter-rouge">initialRouteName</code>指定默认页面，如下所示：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span> 
+    <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span>
+    <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{{</span><span class="na">headerShown</span><span class="p">:</span> <span class="kc">false</span><span class="p">}}</span>
+    <span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span></code></pre></div></div>
+<h3 id="进阶不同navigator之间的嵌套">进阶：不同navigator之间的嵌套</h3>
+<p>如果我们希望做一个购物网站，浏览页底部显示tab导航栏，详情页面等一些页面不显示底部的tab导航栏，那我们可以将tab导航栏包裹后作为一个<code class="language-plaintext highlighter-rouge">stack.screen</code>，而其他不需要显示底部tab导航栏的也作为同级的<code class="language-plaintext highlighter-rouge">stack.screen</code>，示例如下：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">createBottomTabNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">NavigationContainer</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createNativeStackNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">Route</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">TabWrapper</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">首页</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreenWrapper</span><span class="p">}</span>
+        <span class="nx">options</span><span class="o">=</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="p">.....</span>
+    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NativeBaseProvider</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Navigator</span>
+          <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Welcome</span><span class="dl">"</span>
+          <span class="nx">screenOptions</span><span class="o">=&gt;</span>
+          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Detail</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">DetailScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">......</span>
+          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span>
+            <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">TabWrapper</span><span class="dl">"</span>
+            <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">TabWrapper</span><span class="p">}</span>
+            <span class="nx">options</span><span class="o">=</span>
+          <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/Route.Navigator</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NativeBaseProvider</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="drawer-navigation">Drawer Navigation</h2>
+<h3 id="基本用法-1">基本用法</h3>
+<p><code class="language-plaintext highlighter-rouge">Drawer Navigation</code>实现了一个左侧的可收起导航栏，基本使用方法可见<a href="https://reactnavigation.org/docs/drawer-based-navigation">官方文档</a></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createDrawerNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to notifications</span><span class="dl">"</span>
+      <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back home</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nx">createDrawerNavigator</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span> <span class="nx">useLegacyImplementation</span> <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>在<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>中也可以用触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面,或者使用真机回退手势实现页面的回退；和<code class="language-plaintext highlighter-rouge">Tab Navigator</code>一样，同样也可以将<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>嵌套到<code class="language-plaintext highlighter-rouge">Stack Navigator</code>。样例的效果如下：
+<img src="../assets/my_pics/drawer%2000_00_00-00_00_30.gif" alt="show" /></p>
+
+<h3 id="进阶参数传递">进阶：参数传递</h3>
+<p>假如我们希望使用<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>实现一个分类页面，渲染效果基本相同，但是传递的参数不同导致内容不同，为了不简单地将渲染效果的代码简单复制粘贴多遍，造成大量代码冗余，我们可以使用一个<code class="language-plaintext highlighter-rouge">SwitchScreen{i}</code>作为中间桥梁，不同的<code class="language-plaintext highlighter-rouge">SwitchScreen</code>向最终渲染效果的<code class="language-plaintext highlighter-rouge">RenderScreen</code>传递不同的参数，代码如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">useState</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">ActivityIndicator</span><span class="p">,</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createDrawerNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
+
+
+<span class="kd">const</span> <span class="nx">RenderScreen</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">RenderScreen props:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">props</span><span class="p">);</span>
+
+  <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="p">....</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">.....</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+
+
+</code></pre></div></div>
+:ET

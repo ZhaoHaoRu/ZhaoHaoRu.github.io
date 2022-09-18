@@ -1,15 +1,12 @@
 ---
 layout: post
 title: "About"
-author: "Chester"
+author: "Haoru"
 permalink: /about/
 ---
+&emsp;&emsp;一切起源于大二上学期配置`vscode remote-ssh`的痛苦经历，那时候我对linux、ssh等工具非常不熟悉（很遗憾，现在我也还不是熟悉），我与`vscode remote-ssh`大战一周多，才终于搞定。后来由于种种原因，我又配置了几次`vscode remote-ssh`，每次都要到网上找教程重新看一下细节步骤，每当这时候我都在想：“当初为什么不把步骤记下来呢？这样就不用每次都找了。”由于我的懒惰，到现在我也没有记录过配置`vscode remote-ssh`的步骤。
 
-A friend of mine writes short stories. One sunny day, I asked if he wanted a website to showcase his works and he agreed. I decided to use GitHub Pages to host his site. That way he wouldn't have to buy a domain and a server.
+&emsp;&emsp;在大二暑假的小学期中，我逐渐形成了用markdown记笔记的习惯，记录一下环境配置、样例demo、debug报告、语法使用的坑等等，有一些内容是自己摸索出来的，所以以博客的形式分享出来，或许可以方便更多的人；同时也谨以我的博客，记录一下我的个人技术成长。
 
-While doing some research up on GitHub Pages, I accidentally chanced upon this _simple, blog-aware, static site generator_ called [Jekyll](https://jekyllrb.com/) which works really well with GitHub Pages. I figured it would do just fine for my friend and I set about searching for a pretty theme. I wanted a theme with a _book-ish_ vibe. Unfortunately, most of the themes were too modern. Eventually, I caved and begun working on my own theme. With the help of [Poole](https://github.com/poole/poole), the Jekyll Butler, I was able to build **Tale**.
+&emsp;&emsp;感谢你的阅读ヾ(≧▽≦*)o！
 
-## Contribute
-Feel free to create an issue or make a pull request on [GitHub](https://github.com/chesterhow/tale).
-
-Thanks for reading!

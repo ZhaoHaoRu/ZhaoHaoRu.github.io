@@ -1,5 +1,5 @@
 # Site settings
-title:          Tale
+title:          haoru's Blog
 description:    "haoru's blog, something from my daily random thoughts"
 # baseurl:        "/tale"
 # url:            "https://chesterhow.github.io"
@@ -42,3 +42,6 @@ exclude: [ Gemfile, Gemfile.lock, tale.gemspec ]
 
 # Disqus (Set to your disqus id)
 disqus:         jekyll-tale
+
+# Enable compile
+future: true

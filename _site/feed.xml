@@ -1,204 +1,563 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-17T20:55:29+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tale</title><subtitle>haoru&apos;s blog, something from my daily random thoughts</subtitle><author><name>Zhao Haoru</name><email>zhaohaoru@sjtu.edu.cn</email></author><entry><title type="html">Sticky Posts</title><link href="http://localhost:4000/2021-05-03/sticky-posts" rel="alternate" type="text/html" title="Sticky Posts" /><published>2021-05-03T00:00:00+08:00</published><updated>2021-05-03T00:00:00+08:00</updated><id>http://localhost:4000/2021-05-03/sticky-posts</id><content type="html" xml:base="http://localhost:4000/2021-05-03/sticky-posts"><![CDATA[<p>Sticky, or pinned, posts are featured on the top of every page. Tale provides some flexibility when it comes to this feature.<!--more--> There is no limit on the number of sticky posts you can have. Although do note that each page will show all your sticky posts + the paginated posts. So if you have 4 sticky posts and 5 posts per page, each page can display up to 9 posts.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-18T16:15:40+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">haoru’s Blog</title><subtitle>haoru&apos;s blog, something from my daily random thoughts</subtitle><author><name>Zhao Haoru</name><email>zhaohaoru@sjtu.edu.cn</email></author><entry><title type="html">react-navigation 6.x 使用指南 (3)</title><link href="http://localhost:4000/2022-09-18/react-navigation_3" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (3)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022-09-18/react-navigation_3</id><content type="html" xml:base="http://localhost:4000/2022-09-18/react-navigation_3"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part3）。
+<!--more--></p>
 
-<h2 id="making-a-post-sticky">Making a post “sticky”</h2>
+<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
 
-<p>Add <code class="language-plaintext highlighter-rouge">sticky: true</code> to the frontmatter of your blog post.</p>
+<p>在这篇文章中，我将介绍不同页面之间参数的传递和 <code class="language-plaintext highlighter-rouge">Link</code>的使用。</p>
 
-<h3 id="exclude-sticky-post-from-paginated-posts">Exclude sticky post from paginated posts</h3>
+<h2 id="页面导航与参数传递">页面导航与参数传递</h2>
+<h3 id="navigationnavigate--navigationreplace">navigation.navigate &amp; navigation.replace</h3>
+<p>在<a href="https://reactnavigation.org/docs/params">官方文档</a>中给出了<code class="language-plaintext highlighter-rouge">navigation.navigate</code>参数传递的基本方式：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Text</span><span class="p">,</span> <span class="nx">View</span><span class="p">,</span> <span class="nx">Button</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createNativeStackNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
 
-<p>By default, sticky posts are still included in the paginated posts. To exclude a sticky post from paginated posts, add <code class="language-plaintext highlighter-rouge">hidden: true</code> to the frontmatter of that blog post.</p>
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">......</span>
+        <span class="o">&lt;</span><span class="nx">Button</span>
+            <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Details</span><span class="dl">"</span>
+            <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="cm">/* 1. Navigate to the Details route with params */</span>
+            <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Details</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+                <span class="na">itemId</span><span class="p">:</span> <span class="mi">86</span><span class="p">,</span>
+                <span class="na">otherParam</span><span class="p">:</span> <span class="dl">'</span><span class="s1">anything you want here</span><span class="dl">'</span><span class="p">,</span>
+            <span class="p">});</span>
+            <span class="p">}}</span>
+        <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="p">......</span>
+    <span class="p">);</span>
+<span class="p">}</span>
 
-<h2 id="example">Example</h2>
+<span class="kd">function</span> <span class="nx">DetailsScreen</span><span class="p">({</span> <span class="nx">route</span><span class="p">,</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="cm">/* 2. Get the param */</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">itemId</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">otherParam</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span>
+    <span class="p">......</span>
+    <span class="p">);</span>
+<span class="p">}</span>
 
-<p>See the <a href="https://github.com/chesterhow/tale/blob/master/_posts/2017-03-29-introducing-tale.md">“Introducing Tale” post</a>.</p>]]></content><author><name>Chester</name></author><category term="Tutorial" /><summary type="html"><![CDATA[Sticky, or pinned, posts are featured on the top of every page. Tale provides some flexibility when it comes to this feature.]]></summary></entry><entry><title type="html">Managing Excerpt</title><link href="http://localhost:4000/2021-04-30/managing-excerpt" rel="alternate" type="text/html" title="Managing Excerpt" /><published>2021-04-30T00:00:00+08:00</published><updated>2021-04-30T00:00:00+08:00</updated><id>http://localhost:4000/2021-04-30/managing-excerpt</id><content type="html" xml:base="http://localhost:4000/2021-04-30/managing-excerpt"><![CDATA[<p>You can customise the excerpt (the text displayed below each post on the homepage) using the <code class="language-plaintext highlighter-rouge">excerpt-separator</code>.<!--more--> Here’s how you can do so!</p>
+<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
 
-<h2 id="steps">Steps</h2>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Details</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">DetailsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>如果需要传递参数，需要在函数上加入<code class="language-plaintext highlighter-rouge">navigation</code>的参数，如果需要接受接受参数, 则需要加入<code class="language-plaintext highlighter-rouge">route</code>并使用<code class="language-plaintext highlighter-rouge">route.params</code>获得参数。</p>
 
-<ol>
-  <li>
-    <p>Add <code class="language-plaintext highlighter-rouge">excerpt_separator: &lt;!--more--&gt;</code> to the frontmatter of your blog post.</p>
-  </li>
-  <li>
-    <p>Insert this <code class="language-plaintext highlighter-rouge">&lt;!--more--&gt;</code> at where you would like the excerpt to cut off in your blog post.</p>
-  </li>
-</ol>
+<p><code class="language-plaintext highlighter-rouge">navigation.replace</code>和<code class="language-plaintext highlighter-rouge">navigation.navigate</code>传递参数的方式是一样的，区别是<code class="language-plaintext highlighter-rouge">navigation.navigate</code>相当于新压入一个页面，回退的时候还是会回退到当前页面，<code class="language-plaintext highlighter-rouge">navigation.replace</code>是以新页面替换掉了当前页面。</p>
 
-<h3 id="note">Note</h3>
+<h2 id="link的使用以及参数传递">Link的使用以及参数传递</h2>
+<p>使用<code class="language-plaintext highlighter-rouge">Link</code>也可以帮助我们在不同页面之间进行导航，与<code class="language-plaintext highlighter-rouge">navigation.navigate</code>相比，<code class="language-plaintext highlighter-rouge">Link</code>更加自由，因为它不需要在函数上加上<code class="language-plaintext highlighter-rouge">navigation</code>的参数。</p>
 
-<p>This follows <a href="https://jekyllrb.com/docs/posts/#post-excerpts">Jekyll’s recommended way of managing excerpts</a>.</p>
+<h3 id="基本用法">基本用法</h3>
+<p>在<a href="https://reactnavigation.org/docs/link/">官方文档</a>提供了基本的用法。</p>
 
-<h2 id="example">Example</h2>
+<h3 id="参数传递和接收">参数传递和接收</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">Link</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">...</span>
 
-<p>See <a href="https://github.com/chesterhow/tale/blob/master/_posts/2021-04-30-managing-excerpt.md">this post</a> or the <a href="https://github.com/chesterhow/tale/blob/master/_posts/2017-03-29-introducing-tale.md">“Introducing Tale” post</a>.</p>]]></content><author><name>Chester</name></author><category term="Tutorial" /><summary type="html"><![CDATA[You can customise the excerpt (the text displayed below each post on the homepage) using the excerpt-separator.]]></summary></entry><entry><title type="html">Introducing Tale</title><link href="http://localhost:4000/2017-03-29/introducing-tale" rel="alternate" type="text/html" title="Introducing Tale" /><published>2017-03-29T00:00:00+08:00</published><updated>2017-03-29T00:00:00+08:00</updated><id>http://localhost:4000/2017-03-29/introducing-tale</id><content type="html" xml:base="http://localhost:4000/2017-03-29/introducing-tale"><![CDATA[<p>Tale is a minimal <a href="https://jekyllrb.com/">Jekyll</a> theme curated for storytellers. It is designed and developed by <a href="https://github.com/chesterhow/">myself</a> for a friend who writes short stories.<!--more--></p>
+<span class="c1">// 参数的传出</span>
+<span class="kd">const</span> <span class="nx">Card</span> <span class="o">=</span> <span class="p">({</span><span class="nx">props</span><span class="p">,</span> <span class="nx">userId</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">...</span>
+            <span class="o">&lt;</span><span class="nx">Link</span>
+            <span class="nx">to</span><span class="o">=</span><span class="p">{{</span>
+                <span class="na">screen</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Detail</span><span class="dl">'</span><span class="p">,</span>
+                <span class="na">initial</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="na">params</span><span class="p">:</span> <span class="p">{</span><span class="na">props</span><span class="p">:</span> <span class="nx">props</span><span class="p">,</span> <span class="na">userId</span><span class="p">:</span> <span class="nx">userId</span><span class="p">},</span>
+            <span class="p">}}</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">mt</span><span class="o">=</span><span class="p">{</span><span class="mf">0.02</span> <span class="o">*</span> <span class="nx">w</span><span class="p">}</span> <span class="nx">color</span><span class="o">=</span><span class="dl">"</span><span class="s2">#71717a</span><span class="dl">"</span> <span class="nx">bold</span> <span class="nx">size</span><span class="o">=</span><span class="dl">"</span><span class="s2">xl</span><span class="dl">"</span><span class="o">&gt;</span>
+                    <span class="p">{</span><span class="nx">title</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="sr">/Text</span><span class="err">&gt;
+</span>            <span class="o">&lt;</span><span class="sr">/Link</span><span class="err">&gt;
+</span>        <span class="p">...</span>
+        <span class="o">&lt;</span><span class="sr">/Box</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">};</span>
 
-<h2 id="tale-features">Tale features</h2>
-<ul>
-  <li>Compatible with GitHub Pages</li>
-  <li>Responsive design (looks just as good on mobile)</li>
-  <li>Syntax highlighting, with the help of Pygments</li>
-  <li>Markdown and HTML text formatting</li>
-  <li>Pagination of posts</li>
-  <li>Sticky posts</li>
-  <li>Tags</li>
-  <li>Excerpt management</li>
-  <li>Disqus comments</li>
-</ul>
+<span class="c1">// 参数的接受</span>
+<span class="kd">const</span> <span class="nx">DetailScreen</span> <span class="o">=</span> <span class="p">({</span><span class="nx">route</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// console.log('detail screen', route.params);</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">props</span><span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">userId</span><span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">groupId</span><span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">groupId</span><span class="p">;</span>
 
-<p>Head over to the <a href="/2017-03-16/example-content">Example Content</a> post for a showcase of Tale’s text formatting features.</p>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;&gt;</span>
+        <span class="p">...</span>
+        <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
 
-<h2 id="browser-support">Browser Support</h2>
-<p>Tale works on most if not all modern browsers, including Chrome, Safari and Firefox 👍🏼</p>
+<p>在使用<code class="language-plaintext highlighter-rouge">Link</code>的时候,<code class="language-plaintext highlighter-rouge">screen</code>是我们希望导航到的页面名字（这个名字必须已经在<code class="language-plaintext highlighter-rouge">Navigator</code>中定义过了），<code class="language-plaintext highlighter-rouge">params</code>中使用<code class="language-plaintext highlighter-rouge">key:value</code>方式传递参数，在目标页面使用<code class="language-plaintext highlighter-rouge">route.params</code>接受参数（注意在函数参数中一定要加入<code class="language-plaintext highlighter-rouge">route</code>）。</p>
 
-<h2 id="download-or-contribute">Download or Contribute</h2>
-<p>Tale is publicly hosted on GitHub, so go ahead and download or fork it at the <a href="https://github.com/chesterhow/tale">GitHub repository</a>. If you spot any bugs or have any suggestions, feel free to create an issue or make a pull request.</p>
+<h2 id="结语">结语</h2>
+<p>通过这三篇文章，我基本上将我所接触到的<code class="language-plaintext highlighter-rouge">react-navigation</code>的基本用法和使用中遇到问题的解决方案做了介绍。<code class="language-plaintext highlighter-rouge">react-navigation</code>的更新还是非常快速的，并且相对于历史版本，语法上有了比较大的变动，最后还是要以<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>作为最重要的参考。</p>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part3）。]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (1)</title><link href="http://localhost:4000/2022-09-18/react-navigation_1" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (1)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022-09-18/react-navigation_1</id><content type="html" xml:base="http://localhost:4000/2022-09-18/react-navigation_1"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。
+<!--more--></p>
 
-<p>Thanks for checking out Tale!</p>]]></content><author><name>Chester</name></author><category term="Tale" /><summary type="html"><![CDATA[Tale is a minimal Jekyll theme curated for storytellers. It is designed and developed by myself for a friend who writes short stories.]]></summary></entry><entry><title type="html">Example Content</title><link href="http://localhost:4000/2017-03-16/example-content" rel="alternate" type="text/html" title="Example Content" /><published>2017-03-16T00:00:00+08:00</published><updated>2017-03-16T00:00:00+08:00</updated><id>http://localhost:4000/2017-03-16/example-content</id><content type="html" xml:base="http://localhost:4000/2017-03-16/example-content"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt ornare nibh, non elementum augue tempus eget. Pellentesque tempus scelerisque iaculis.<!--more--> Nullam interdum ultricies nibh quis sollicitudin. Donec ornare fermentum facilisis. Ut at sem ac sem imperdiet varius a eget tortor. Nam eu augue eget orci semper maximus in eget augue. Mauris ornare, nisl ut suscipit consectetur, mi quam interdum tellus, at rutrum quam eros ultrices mi.</p>
+<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
 
-<h1 id="headers">Headers</h1>
+<p>在这篇文章中，我将介绍<code class="language-plaintext highlighter-rouge">react-navigation</code>的安装与<code class="language-plaintext highlighter-rouge">Tab navigation</code>的使用</p>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="gh"># H1</span>
-<span class="gu">## H2</span>
-<span class="gu">### H3</span>
-<span class="gu">#### H4</span>
-<span class="gu">##### H5</span>
-<span class="gu">###### H6</span></code></pre></figure>
+<h2 id="使用npm安装和卸载">使用npm安装和卸载</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--save</span> react-navigation 
+npm <span class="nb">install </span>react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view // 安装相关的依赖
 
-<h1 id="h1">H1</h1>
-<h2 id="h2">H2</h2>
-<h3 id="h3">H3</h3>
-<h4 id="h4">H4</h4>
-<h5 id="h5">H5</h5>
-<h6 id="h6">H6</h6>
+// 在babel.config.js的module.exports中增加这句：
+plugins: <span class="o">[</span><span class="s1">'react-native-reanimated/plugin'</span><span class="o">]</span>
 
-<h1 id="text-formatting">Text formatting</h1>
+// 卸载
+npm uninstall react-navigation <span class="nt">--save</span>
+</code></pre></div></div>
+<h2 id="tab-navigation的使用">Tab navigation的使用</h2>
+<h3 id="基础用法官方文档中的示例">基础用法：官方文档中的示例</h3>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Text</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createBottomTabNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="p">-</span> <span class="gs">**Bold**</span>
-<span class="p">-</span> _Italics_
-<span class="p">-</span> ~~Strikethrough~~
-<span class="p">-</span> <span class="nt">&lt;ins&gt;</span>Underline<span class="nt">&lt;/ins&gt;</span>
-<span class="p">-</span> <span class="nt">&lt;sup&gt;</span>Superscript<span class="nt">&lt;/sup&gt;</span>
-<span class="p">-</span> <span class="nt">&lt;sub&gt;</span>Subscript<span class="nt">&lt;/sub&gt;</span>
-<span class="p">-</span> Abbreviation: <span class="nt">&lt;abbr</span> <span class="na">title=</span><span class="s">"HyperText Markup Language"</span><span class="nt">&gt;</span>HTML<span class="nt">&lt;/abbr&gt;</span>
-<span class="p">-</span> Citation: <span class="nt">&lt;cite&gt;</span><span class="ni">&amp;mdash;</span> Chester How<span class="nt">&lt;/cite&gt;</span></code></pre></figure>
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Home</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<ul>
-  <li><strong>Bold</strong></li>
-  <li><em>Italics</em></li>
-  <li><del>Strikethrough</del></li>
-  <li><ins>Underline</ins></li>
-  <li><sup>Superscript</sup></li>
-  <li><sub>Subscript</sub></li>
-  <li>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></li>
-  <li>Citation: <cite>— Chester How</cite></li>
-</ul>
+<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Settings</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<h1 id="lists">Lists</h1>
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="p">1.</span> Ordered list item 1
-<span class="p">2.</span> Ordered list item 2
-<span class="p">3.</span> Ordered list item 3
-<span class="p">
-*</span> Unordered list item 1
-<span class="p">*</span> Unordered list item 2
-<span class="p">*</span> Unordered list item 3</code></pre></figure>
+<span class="kd">function</span> <span class="nx">MyTabs</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<ol>
-  <li>Ordered list item 1</li>
-  <li>Ordered list item 2</li>
-  <li>Ordered list item 3</li>
-</ol>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MyTabs</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><strong>实现效果</strong>：底部有一个最基础的的导航栏，没有图标，顶上默认会有一个header，和<code class="language-plaintext highlighter-rouge">Tab.Screen</code>的<code class="language-plaintext highlighter-rouge">name</code>相一致。
+<img src="../assets/my_pics/tab_nav.png" alt="tab_nav" /></p>
 
-<ul>
-  <li>Unordered list item 1</li>
-  <li>Unordered list item 2</li>
-  <li>Unordered list item 3</li>
-</ul>
+<h3 id="进阶1添加图标">进阶1:添加图标</h3>
+<p>官方文档中的示例：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Text</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Ionicons</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@expo/vector-icons</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createBottomTabNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
 
-<h1 id="links">Links</h1>
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Home</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">Check out tale on <span class="p">[</span><span class="nv">GitHub</span><span class="p">](</span><span class="sx">https://github.com/chesterhow/tale</span><span class="p">)</span>.</code></pre></figure>
+<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Settings</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<p>Check out tale on <a href="https://github.com/chesterhow/tale">GitHub</a>.</p>
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
 
-<h1 id="images">Images</h1>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span>
+        <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{({</span> <span class="nx">route</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+          <span class="na">tabBarIcon</span><span class="p">:</span> <span class="p">({</span> <span class="nx">focused</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">size</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">Home</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="p">(</span>
+                <span class="o">&lt;</span><span class="nx">Ionicons</span>
+                  <span class="nx">name</span><span class="o">=</span><span class="p">{</span>
+                    <span class="nx">focused</span>
+                      <span class="p">?</span> <span class="dl">'</span><span class="s1">ios-information-circle</span><span class="dl">'</span>
+                      <span class="p">:</span> <span class="dl">'</span><span class="s1">ios-information-circle-outline</span><span class="dl">'</span>
+                  <span class="p">}</span>
+                  <span class="nx">size</span><span class="o">=</span><span class="p">{</span><span class="nx">size</span><span class="p">}</span>
+                  <span class="nx">color</span><span class="o">=</span><span class="p">{</span><span class="nx">color</span><span class="p">}</span>
+                <span class="sr">/</span><span class="err">&gt;
+</span>              <span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="p">(</span>
+                <span class="o">&lt;</span><span class="nx">Ionicons</span>
+                  <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">ios-list-box</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">ios-list</span><span class="dl">'</span><span class="p">}</span>
+                  <span class="nx">size</span><span class="o">=</span><span class="p">{</span><span class="nx">size</span><span class="p">}</span>
+                  <span class="nx">color</span><span class="o">=</span><span class="p">{</span><span class="nx">color</span><span class="p">}</span>
+                <span class="sr">/</span><span class="err">&gt;
+</span>              <span class="p">);</span>
+            <span class="p">}</span>
+          <span class="p">},</span>
+          <span class="na">tabBarInactiveTintColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">gray</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">tabBarActiveTintColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">tomato</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">})}</span>
+      <span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+          <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span>
+          <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span>
+          <span class="nx">options</span><span class="o">=</span> <span class="p">{{</span> <span class="na">tabBarBadge</span><span class="p">:</span> <span class="mi">3</span> <span class="p">}}</span>
+        <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>如果想要使用icon的话，需要在<code class="language-plaintext highlighter-rouge">Tab.Navigator</code>的<code class="language-plaintext highlighter-rouge">screenOption</code>中设置<code class="language-plaintext highlighter-rouge">tabBarIcon</code>的渲染效果，根据页面<code class="language-plaintext highlighter-rouge">name</code>和是否为选中页面<code class="language-plaintext highlighter-rouge">focused</code>设置不同的图标（<code class="language-plaintext highlighter-rouge">&lt;Ionicons ... /&gt;</code>)，还可以根据<code class="language-plaintext highlighter-rouge">tabBarInactiveTintColor</code>和<code class="language-plaintext highlighter-rouge">tabBarActiveTintColor</code>设置图标颜色，在<code class="language-plaintext highlighter-rouge">Tab.Screen</code>中设置<code class="language-plaintext highlighter-rouge">tabBarBadge</code>可以在图标上添加一个小红点，并指示数字，渲染效果如下：
+<img src="../assets/my_pics/tab_nav_with_icon.png" alt="tab_nav_with_icon" /></p>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="p">![</span><span class="nv">Placeholder image</span><span class="p">](</span><span class="sx">https://placehold.it/800x400</span> <span class="nn">"Placeholder image"</span><span class="p">)</span>
+<p>在官方示例中，对于每一个图标都要写一次<code class="language-plaintext highlighter-rouge">&lt;Ionicons ... /&gt;</code>，太过于繁琐；并且<code class="language-plaintext highlighter-rouge">@expo/vector-icons</code>的图标可能在<code class="language-plaintext highlighter-rouge">react native</code>的原生环境中不能很好地渲染，于是我们可以做出这样的改进：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">extendTheme</span><span class="p">,</span> <span class="nx">NativeBaseProvider</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">native-base</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">HomeScreenWrapper</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./screens/HomeScreen</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">Icon</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">native-base</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">BrowseScreen</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./screens/BrowseScreen</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">MyProfileScreenRoute</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./screens/MyProfileScreen</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">OrderScreen</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./screens/OrderScreen</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">CreateGroupScreen</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./screens/CreateGroupScreen</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createBottomTabNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">NavigationContainer</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">AntDesign</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native-vector-icons/AntDesign</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="p">![</span><span class="nv">Image with caption</span><span class="p">](</span><span class="sx">https://placehold.it/700x400</span> <span class="nn">"Image with caption"</span><span class="p">)</span>
-<span class="ge">_This is an image with a caption_</span></code></pre></figure>
+<span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span>
+      <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{({</span><span class="nx">route</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">headerStyle</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#fda4af</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">headerTintColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#fff</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">headerTitleStyle</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">fontWeight</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bold</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="na">tabBarIcon</span><span class="p">:</span> <span class="p">({</span><span class="nx">focused</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">size</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="kd">let</span> <span class="nx">iconName</span><span class="p">;</span>
 
-<p><img src="https://placehold.it/800x400" alt="Placeholder image" title="Placeholder image" /></p>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">首页</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">home</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">home</span><span class="dl">'</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">附近拼团</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">appstore-o</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">appstore-o</span><span class="dl">'</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">订单</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">redenvelopes</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">redenvelopes</span><span class="dl">'</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">个人</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">一键开团</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">rocket1</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">rocket1</span><span class="dl">'</span><span class="p">;</span>
+          <span class="p">}</span>
 
-<p><img src="https://placehold.it/700x400" alt="Image with caption" title="Image with caption" />
-<em>This is an image with a caption</em></p>
+          <span class="c1">// You can return any component that you like here!</span>
+          <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">Icon</span> <span class="k">as</span><span class="o">=</span><span class="p">{</span><span class="nx">AntDesign</span><span class="p">}</span> <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="nx">iconName</span><span class="p">}</span> <span class="nx">size</span><span class="o">=</span><span class="p">{</span><span class="nx">size</span><span class="p">}</span> <span class="nx">color</span><span class="o">=</span><span class="p">{</span><span class="nx">color</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">);</span>
+        <span class="p">},</span>
+        <span class="na">tabBarActiveTintColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">tomato</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">tabBarInactiveTintColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">gray</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">})}</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">首页</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreenWrapper</span><span class="p">}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">附近拼团</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">BrowseScreen</span><span class="p">}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">一键开团</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">CreateGroupScreen</span><span class="p">}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">订单</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">OrderScreen</span><span class="p">}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">个人</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">MyProfileScreenRoute</span><span class="p">}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
+</span></code></pre></div></div>
+<p>在这里，我们使用了<code class="language-plaintext highlighter-rouge">iconName</code>记录了应渲染图标的名字，最后只需要<code class="language-plaintext highlighter-rouge">return &lt;Icon as={AntDesign} name={iconName} size={size} color={color} /&gt; </code> 一次即可，这里我们使用的图标是<code class="language-plaintext highlighter-rouge">AntDesign</code> + <code class="language-plaintext highlighter-rouge">native-base</code>里面的icon,经试验能够在<code class="language-plaintext highlighter-rouge">react-native</code>的环境中有比较好的渲染效果，最后效果如下：
+<img src="../assets/my_pics/my_tab.png" alt="my_tab" /></p>
 
-<h1 id="code-and-syntax-highlighting">Code and Syntax Highlighting</h1>
-<p>Use back-ticks for <code class="language-plaintext highlighter-rouge">inline code</code>. Multi-line code snippets are supported too through Pygments.</p>
+<h3 id="进阶2不显示header">进阶2：不显示header</h3>
+<p>在以上的几种实现中，都会携带默认的header，在<code class="language-plaintext highlighter-rouge">Tab.Navigator</code>的<code class="language-plaintext highlighter-rouge">screenOption</code>中设置<code class="language-plaintext highlighter-rouge">headerStyle</code>、<code class="language-plaintext highlighter-rouge">headerTitleStyle</code>等属性还可以改变header的背景颜色、字体风格等等，但是如果我们不想显示header的话，就需要在<code class="language-plaintext highlighter-rouge">Tab.Screen</code>的<code class="language-plaintext highlighter-rouge">options</code>中将<code class="language-plaintext highlighter-rouge">headerShown</code>设为<code class="language-plaintext highlighter-rouge">false</code>。</p>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Sample javascript code</span>
-<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span></code></pre></figure>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">首页</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreenWrapper</span><span class="p">}</span>
+        <span class="nx">options</span><span class="o">=</span> <span class="p">{{</span><span class="na">headerShown</span><span class="p">:</span> <span class="kc">false</span><span class="p">}}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span></code></pre></div></div>
+<p>在这个时候我们就看不到header了，效果如下：
+<img src="../assets/my_pics/witho.png" alt="without_header" /></p>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (2)</title><link href="http://localhost:4000/2022-09-18/react-navigation_2" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (2)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022-09-18/react-navigation_2</id><content type="html" xml:base="http://localhost:4000/2022-09-18/react-navigation_2"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part2）。
+<!--more--></p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Sample python code
-</span><span class="n">s</span> <span class="o">=</span> <span class="s">"Python syntax highlighting"</span>
-<span class="k">print</span> <span class="n">s</span></code></pre></figure>
+<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
 
-<p>Adding <code class="language-plaintext highlighter-rouge">linenos</code> to the highlight tag enables line numbers.</p>
+<p>在这篇文章中，我将介绍<code class="language-plaintext highlighter-rouge">Native Stack Navigator</code>的使用以及<code class="language-plaintext highlighter-rouge">Drawer Navigation</code>的使用。</p>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="code"><pre><span class="c1">// Sample javascript code</span>
-<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></figure>
+<h2 id="native-stack-navigator">Native Stack Navigator</h2>
+<h3 id="基本用法">基本用法</h3>
+<p>如果不想显示任何导航栏，<code class="language-plaintext highlighter-rouge">stack navigator</code>无疑是个最好的选择，这是最基本的页面导航，它维护了一个栈结构，进入一个页面相当于在栈里压入了一个页面，返回操作相当于在栈中弹出一个页面。在<a href="https://reactnavigation.org/docs/native-stack-navigator/">官方文档</a>给出了基本的用法：</p>
 
-<h1 id="blockquotes">Blockquotes</h1>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createNativeStackNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="gt">&gt; Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</span></code></pre></figure>
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Profile</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Profile</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<blockquote>
-  <p>Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-</blockquote>
+<span class="kd">function</span> <span class="nx">ProfileScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Notifications</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<h1 id="horizontal-rule--line-break">Horizontal Rule &amp; Line Break</h1>
+<span class="kd">function</span> <span class="nx">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Settings</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">Use <span class="sb">`&lt;hr&gt;`</span> for horizontal rules
+<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<span class="nt">&lt;hr&gt;</span>
+<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
 
-and <span class="sb">`&lt;br&gt;`</span> for line breaks.
+<span class="kd">function</span> <span class="nx">MyStack</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<span class="nt">&lt;br&gt;</span></code></pre></figure>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MyStack</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>这里<code class="language-plaintext highlighter-rouge">createNativeStackNavigator</code>创建了一个<code class="language-plaintext highlighter-rouge">stack</code>,在不同的页面之间，点击<code class="language-plaintext highlighter-rouge">Button</code>触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面，如果我们使用的是真机的话，后退手势也可以返回上一级页面。实现的效果如下：
+<img src="../assets/my_pics/stack%2000_00_00-00_00_30.gif" alt="show" /></p>
 
-<p>Use <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> for horizontal rules</p>
+<p>同样，这里默认还是会显示header的，如果我们不想显示header的话，也可以在<code class="language-plaintext highlighter-rouge">Stack.Navigator</code>里面添加<code class="language-plaintext highlighter-rouge">headerShown: false</code>属性，原则上第一个页面是打开的默认页面，我们也可以使用<code class="language-plaintext highlighter-rouge">initialRouteName</code>指定默认页面，如下所示：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span> 
+    <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span>
+    <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{{</span><span class="na">headerShown</span><span class="p">:</span> <span class="kc">false</span><span class="p">}}</span>
+    <span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span></code></pre></div></div>
+<h3 id="进阶不同navigator之间的嵌套">进阶：不同navigator之间的嵌套</h3>
+<p>如果我们希望做一个购物网站，浏览页底部显示tab导航栏，详情页面等一些页面不显示底部的tab导航栏，那我们可以将tab导航栏包裹后作为一个<code class="language-plaintext highlighter-rouge">stack.screen</code>，而其他不需要显示底部tab导航栏的也作为同级的<code class="language-plaintext highlighter-rouge">stack.screen</code>，示例如下：</p>
 
-<hr />
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">createBottomTabNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">NavigationContainer</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createNativeStackNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
 
-<p>and <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> for line breaks.</p>
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">Route</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
 
-<p><br /></p>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">TabWrapper</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">首页</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreenWrapper</span><span class="p">}</span>
+        <span class="nx">options</span><span class="o">=</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="p">.....</span>
+    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<p><em>The end</em></p>]]></content><author><name>Chester</name></author><category term="Example" /><summary type="html"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt ornare nibh, non elementum augue tempus eget. Pellentesque tempus scelerisque iaculis.]]></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/2017-03-10/welcome-to-jekyll" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-03-10T00:00:00+08:00</published><updated>2017-03-10T00:00:00+08:00</updated><id>http://localhost:4000/2017-03-10/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/2017-03-10/welcome-to-jekyll"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NativeBaseProvider</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Navigator</span>
+          <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Welcome</span><span class="dl">"</span>
+          <span class="nx">screenOptions</span><span class="o">=&gt;</span>
+          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Detail</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">DetailScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">......</span>
+          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span>
+            <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">TabWrapper</span><span class="dl">"</span>
+            <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">TabWrapper</span><span class="p">}</span>
+            <span class="nx">options</span><span class="o">=</span>
+          <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/Route.Navigator</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NativeBaseProvider</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<h2 id="drawer-navigation">Drawer Navigation</h2>
+<h3 id="基本用法-1">基本用法</h3>
+<p><code class="language-plaintext highlighter-rouge">Drawer Navigation</code>实现了一个左侧的可收起导航栏，基本使用方法可见<a href="https://reactnavigation.org/docs/drawer-based-navigation">官方文档</a></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createDrawerNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
 
-<p>Jekyll also offers powerful support for code snippets: like these</p>
+<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to notifications</span><span class="dl">"</span>
+      <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+<span class="kd">function</span> <span class="nx">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back home</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>]]></content><author><name>Jekyll</name></author><category term="Jekyll" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry><entry><title type="html">The Case of the Missing Post</title><link href="http://localhost:4000/2017-03-07/the-case-of-the-missing-post" rel="alternate" type="text/html" title="The Case of the Missing Post" /><published>2017-03-07T00:00:00+08:00</published><updated>2017-03-07T00:00:00+08:00</updated><id>http://localhost:4000/2017-03-07/the-case-of-the-missing-post</id><content type="html" xml:base="http://localhost:4000/2017-03-07/the-case-of-the-missing-post"><![CDATA[<p>Kitty power! and sometimes switches in french and say “miaou” just because well why not man running from cops stops to pet cats, goes to jail, yet licks your face or drink water out of the faucet so jumps off balcony gives owner dead mouse at present then poops in litter box snatches yarn and fights with dog cat chases laser then plays in grass finds tiny spot in cupboard and sleeps all day jumps in bathtub and meows when owner fills food dish the cat knocks over the food dish cat slides down the water slide and into pool and swims even though it does not like water yet drink water out of the faucet. Pelt around the house and up and down stairs chasing phantoms.</p>
+<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nx">createDrawerNavigator</span><span class="p">();</span>
 
-<p>Sit in window and stare ooo, a bird! yum. Sit and stare. Sweet beast loves cheeseburgers. Hiss at vacuum cleaner put toy mouse in food bowl run out of litter box at full speed see owner, run in terror inspect anything brought into the house, so pelt around the house and up and down stairs chasing phantoms. Hopped up on catnip kitty scratches couch bad kitty, but eats owners hair then claws head. Lie on your belly and purr when you are asleep kitty power! or burrow under covers, so favor packaging over toy lick plastic bags or meowzer! yet unwrap toilet paper.</p>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span> <span class="nx">useLegacyImplementation</span> <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>在<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>中也可以用触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面,或者使用真机回退手势实现页面的回退；和<code class="language-plaintext highlighter-rouge">Tab Navigator</code>一样，同样也可以将<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>嵌套到<code class="language-plaintext highlighter-rouge">Stack Navigator</code>。样例的效果如下：
+<img src="../assets/my_pics/drawer%2000_00_00-00_00_30.gif" alt="show" /></p>
 
-<p><a href="http://www.catipsum.com/">Cat Ipsum</a></p>]]></content><author><name>Chester</name></author><category term="Tale" /><summary type="html"><![CDATA[Kitty power! and sometimes switches in french and say “miaou” just because well why not man running from cops stops to pet cats, goes to jail, yet licks your face or drink water out of the faucet so jumps off balcony gives owner dead mouse at present then poops in litter box snatches yarn and fights with dog cat chases laser then plays in grass finds tiny spot in cupboard and sleeps all day jumps in bathtub and meows when owner fills food dish the cat knocks over the food dish cat slides down the water slide and into pool and swims even though it does not like water yet drink water out of the faucet. Pelt around the house and up and down stairs chasing phantoms.]]></summary></entry><entry><title type="html">The Mystery of the Filler Post</title><link href="http://localhost:4000/2017-03-06/the-mystery-of-the-filler-post" rel="alternate" type="text/html" title="The Mystery of the Filler Post" /><published>2017-03-06T00:00:00+08:00</published><updated>2017-03-06T00:00:00+08:00</updated><id>http://localhost:4000/2017-03-06/the-mystery-of-the-filler-post</id><content type="html" xml:base="http://localhost:4000/2017-03-06/the-mystery-of-the-filler-post"><![CDATA[<p>Hornswaggle measured fer yer chains chase run a shot across the bow Chain Shot flogging Pirate Round galleon rope’s end aft. Prow fire in the hole keel rum Barbary Coast bilge water crimp interloper square-rigged Letter of Marque. Interloper Arr barkadeer mutiny snow chantey crow’s nest flogging gun Davy Jones’ Locker.</p>
+<h3 id="进阶参数传递">进阶：参数传递</h3>
+<p>假如我们希望使用<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>实现一个分类页面，渲染效果基本相同，但是传递的参数不同导致内容不同，为了不简单地将渲染效果的代码简单复制粘贴多遍，造成大量代码冗余，我们可以使用一个<code class="language-plaintext highlighter-rouge">SwitchScreen{i}</code>作为中间桥梁，不同的<code class="language-plaintext highlighter-rouge">SwitchScreen</code>向最终渲染效果的<code class="language-plaintext highlighter-rouge">RenderScreen</code>传递不同的参数，代码如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">useState</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">ActivityIndicator</span><span class="p">,</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createDrawerNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
 
-<p>Bilge jolly boat barque topsail interloper chandler spanker scuttle Arr sloop. Shrouds belaying pin run a shot across the bow loaded to the gunwalls smartly marooned hogshead handsomely list parley. Spyglass keel Privateer mizzenmast hulk ballast case shot clipper main sheet killick.</p>
 
-<p>Careen hempen halter Letter of Marque pillage swing the lead take a caulk Sail ho jury mast walk the plank ho. Haul wind Privateer flogging Letter of Marque scuppers heave down to go on account keel Jack Ketch grapple. Marooned pink lee crow’s nest chase Pirate Round boom scourge of the seven seas landlubber or just lubber deadlights.</p>
+<span class="kd">const</span> <span class="nx">RenderScreen</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">RenderScreen props:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">props</span><span class="p">);</span>
 
-<p><a href="http://pirateipsum.me/">Pirate Ipsum</a></p>]]></content><author><name>Chester</name></author><category term="Tale" /><summary type="html"><![CDATA[Hornswaggle measured fer yer chains chase run a shot across the bow Chain Shot flogging Pirate Round galleon rope’s end aft. Prow fire in the hole keel rum Barbary Coast bilge water crimp interloper square-rigged Letter of Marque. Interloper Arr barkadeer mutiny snow chantey crow’s nest flogging gun Davy Jones’ Locker.]]></summary></entry><entry><title type="html">Pagination Post</title><link href="http://localhost:4000/2017-03-05/pagination-post" rel="alternate" type="text/html" title="Pagination Post" /><published>2017-03-05T00:00:00+08:00</published><updated>2017-03-05T00:00:00+08:00</updated><id>http://localhost:4000/2017-03-05/pagination-post</id><content type="html" xml:base="http://localhost:4000/2017-03-05/pagination-post"><![CDATA[<p>Here we see <strong>Tale’s</strong> pagination feature in action. It is set to 5 posts per page by default. Feel free to change this number in the <code class="language-plaintext highlighter-rouge">_config.yml</code> file!</p>]]></content><author><name>Chester</name></author><category term="Tale" /><summary type="html"><![CDATA[Here we see Tale’s pagination feature in action. It is set to 5 posts per page by default. Feel free to change this number in the _config.yml file!]]></summary></entry></feed>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="p">....</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="p">[]);</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">.....</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// SwtichScreen 用于不同类别页面的渲染，起到桥梁作用</span>
+<span class="kd">function</span> <span class="nx">SwitchScreen1</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SwitchScreen2</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别1</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SwitchScreen3</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别2</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SwitchScreen4</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别3</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SwitchScreen5</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别4</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SwitchScreen6</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别5</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nx">createDrawerNavigator</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">BrowseScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span>
+      <span class="nx">useLegacyImplementation</span>
+      <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span>
+      <span class="nx">drawerBackgroundColor</span><span class="o">=</span><span class="dl">"</span><span class="s2">#fda4af</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen1</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别1</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen2</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别2</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen3</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别3</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen4</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别4</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen5</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别5</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen6</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+</code></pre></div></div>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part2）。]]></summary></entry></feed>
