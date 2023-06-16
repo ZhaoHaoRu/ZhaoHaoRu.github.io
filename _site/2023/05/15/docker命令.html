@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>docker命令记录 | haoru’s blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="docker命令记录" />
+<meta name="author" content="Haoru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="From SJTU, SEUse blog to record my learning progress and random thoughts.Word is cheap, show me your code." />
+<meta property="og:description" content="From SJTU, SEUse blog to record my learning progress and random thoughts.Word is cheap, show me your code." />
+<link rel="canonical" href="http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html" />
+<meta property="og:url" content="http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html" />
+<meta property="og:site_name" content="haoru’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-05-15T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="docker命令记录" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Haoru"},"dateModified":"2023-05-15T00:00:00+08:00","datePublished":"2023-05-15T00:00:00+08:00","description":"From SJTU, SEUse blog to record my learning progress and random thoughts.Word is cheap, show me your code.","headline":"docker命令记录","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html"},"url":"http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="haoru&apos;s blog" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">haoru&#39;s blog<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://github.com/ZhaoHaoRu"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    /assets/avatar.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">From SJTU, SE<br>Use blog to record my learning progress and random thoughts.<br>Word is cheap, show me your code.</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">docker命令记录</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/docker/">Docker</a>
+      
+      <a class="tag" href="/tag/commands/">Commands</a>
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 15 May 2023
+    
+    by Haoru
+    
+  </div>
+  
+  <!--more-->
+
+<p>po一下最近使用到的docker的命令用法，一直都记不住要经常现查 :(</p>
+
+<h4 id="1-删除镜像">1. 删除镜像</h4>
+
+<ol>
+  <li>要按照镜像名称删除 Docker 中的镜像，可以使用 <code class="language-plaintext highlighter-rouge">docker rmi</code> 命令。</li>
+</ol>
+
+<p>命令格式如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rmi &lt;image_name&gt;
+</code></pre></div></div>
+
+<p>其中 <code class="language-plaintext highlighter-rouge">&lt;image_name&gt;</code> 是要删除的镜像的名称或镜像 ID。</p>
+
+<p>docker删除构建失败的镜像（批量删除没有名字的镜像）</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rmi <span class="si">$(</span>docker images <span class="nt">-f</span> <span class="s2">"dangling=true"</span> <span class="nt">-q</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h4 id="2-删除container">2. 删除container</h4>
+
+<p>删除所有不再运行的container</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-aq</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h4 id="3-以某一镜像构建容器">3. 以某一镜像构建容器</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-p</span> 5000:5000 <span class="nt">--name</span> my_container <span class="nt">-d</span> your_image_name
+</code></pre></div></div>
+
+<p>在运行容器之后，可以使用 <code class="language-plaintext highlighter-rouge">docker ps</code> 命令来查看运行的容器。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+</code></pre></div></div>
+
+<h4 id="4-进入容器">4. 进入容器</h4>
+
+<p>如果需要进入容器内部进行交互，可以使用 <code class="language-plaintext highlighter-rouge">docker exec</code> 命令。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> my_container /bin/sh
+</code></pre></div></div>
+
+<h4 id="5-查看容器">5. 查看容器</h4>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">docker ps</code> 命令来查看运行的容器。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+</code></pre></div></div>
+
+<p>显示所有包括已经停止的容器</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="nt">-a</span>
+</code></pre></div></div>
+
+<h4 id="6-查看docker容器对应的ip">6. 查看docker容器对应的ip</h4>
+
+<ol>
+  <li>要查看 Docker 容器的 IP 地址，可以使用 <code class="language-plaintext highlighter-rouge">docker inspect</code> 命令。该命令可以获取容器的详细信息，包括 IP 地址。</li>
+</ol>
+
+<p>以下是一个示例命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect <span class="nt">-f</span> <span class="s1">''</span> &lt;container_id_or_name&gt;
+</code></pre></div></div>
+
+<p>在上面的命令中，需要将 <code class="language-plaintext highlighter-rouge">&lt;container_id_or_name&gt;</code> 替换为要查询的容器的 ID 或名称。命令执行后，它会输出容器的 IP 地址。</p>
+
+<ol>
+  <li>如果只想获取容器的 IP 地址，可以使用 <code class="language-plaintext highlighter-rouge">--format</code> 选项来指定输出格式。</li>
+</ol>
+
+<p>以下是示例命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect <span class="nt">--format</span> <span class="s1">''</span> &lt;container_id_or_name&gt;
+</code></pre></div></div>
+
+<p>请确保在命令中替换 <code class="language-plaintext highlighter-rouge">&lt;container_id_or_name&gt;</code> 为实际的容器 ID 或名称。</p>
+
+<ol>
+  <li>如果想要一次性查看所有容器的 IP 地址，可以结合使用 <code class="language-plaintext highlighter-rouge">docker ps</code> 和 <code class="language-plaintext highlighter-rouge">docker inspect</code> 命令。</li>
+</ol>
+
+<p>以下是一个示例命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="nt">-q</span> | xargs <span class="nt">-n</span> 1 docker inspect <span class="nt">-f</span> <span class="s1">' - '</span>
+</code></pre></div></div>
+
+<p>该命令会列出所有容器的 ID 和对应的 IP 地址。</p>
+
+<p>请注意，<em>上述命令只能查看正在运行的容器的 IP 地址。如果容器已经停止，它将不会显示相应的 IP 地址</em>。</p>
+
+<h4 id="7-使用另外一台机器上的docker-registry">7. 使用另外一台机器上的docker registry</h4>
+
+<p>要使用另一台机器上的 Docker Registry，需要进行以下步骤：</p>
+
+<ol>
+  <li>
+    <p><strong>在另一台机器上设置 Docker Registry：</strong> 首先，在另一台机器上启动一个 Docker Registry 服务。可以使用官方的 Docker Registry 镜像来运行一个私有的 Registry。可以使用以下命令启动 Registry 容器：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -p 5000:5000 --restart=always --name registry registry:2
+</code></pre></div>    </div>
+
+    <p>这将在端口 5000 上启动 Docker Registry 并持续运行。</p>
+  </li>
+  <li>
+    <p><strong>配置 Docker 客户端：</strong> 需要在本地的 Docker 客户端上配置它来使用另一台机器上的 Docker Registry。将 Docker 客户端配置为信任另一台机器上的 Registry。为此，可以在 Docker 客户端上创建一个配置文件 <code class="language-plaintext highlighter-rouge">daemon.json</code>（如果不存在），并添加以下内容：</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"insecure-registries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;registry-hostname&gt;:&lt;registry-port&gt;"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>其中 <code class="language-plaintext highlighter-rouge">&lt;registry-hostname&gt;</code> 是另一台机器的主机名或 IP 地址，<code class="language-plaintext highlighter-rouge">&lt;registry-port&gt;</code> 是 Registry 服务的端口（默认为 5000）。保存配置文件后，重启 Docker 服务，使配置生效。</p>
+  </li>
+  <li>
+    <p><strong>标记镜像并推送到 Registry：</strong> 现在可以将本地的 Docker 镜像标记为另一台机器上的 Registry 地址，并推送到该 Registry。假设有一个名为 <code class="language-plaintext highlighter-rouge">my-image</code> 的镜像，可以使用以下命令来进行标记和推送：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker tag my-image &lt;registry-hostname&gt;:&lt;registry-port&gt;/my-image
+docker push &lt;registry-hostname&gt;:&lt;registry-port&gt;/my-image
+</code></pre></div>    </div>
+
+    <p>将 <code class="language-plaintext highlighter-rouge">&lt;registry-hostname&gt;</code> 替换为另一台机器的主机名或 IP 地址，<code class="language-plaintext highlighter-rouge">&lt;registry-port&gt;</code> 替换为 Registry 服务的端口。</p>
+  </li>
+  <li>
+    <p><strong>从 Registry 拉取镜像：</strong> 如果想从另一台机器上的 Registry 拉取镜像，可以使用以下命令：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull &lt;registry-hostname&gt;:&lt;registry-port&gt;/my-image
+</code></pre></div>    </div>
+
+    <p>同样，将 <code class="language-plaintext highlighter-rouge">&lt;registry-hostname&gt;</code> 替换为另一台机器的主机名或 IP 地址，<code class="language-plaintext highlighter-rouge">&lt;registry-port&gt;</code> 替换为 Registry 服务的端口。</p>
+  </li>
+</ol>
+
+<p>通过以上步骤，就可以使用另一台机器上的 Docker Registry 进行镜像的推送和拉取操作。</p>
+
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html';
+     this.page.identifier = '/2023/05/15/docker命令';
+     this.page.title = 'docker命令记录';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//bitbrain-github-io.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2023/06/15/%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95.html">
+            找工记录
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/06/14/%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93.html">
+            大三总结
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/06/14/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html">
+            Github pages + jekyll 博客搭建
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/blogs/" class="set-1">Blogs</a> <a href="/tag/commands/" class="set-3">Commands</a> <a href="/tag/docker/" class="set-1">Docker</a> <a href="/tag/git/" class="set-1">Git</a> <a href="/tag/react-native/" class="set-5">React-Native</a> <a href="/tag/macbook/" class="set-3">macbook</a> <a href="/tag/%E6%80%BB%E7%BB%93/" class="set-1">总结</a> <a href="/tag/%E6%89%BE%E5%B7%A5%E4%BD%9C/" class="set-1">找工作</a> <a href="/tag/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" class="set-3">碎碎念</a> <a href="/tag/%E9%85%8D%E7%8E%AF%E5%A2%83/" class="set-3">配环境</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

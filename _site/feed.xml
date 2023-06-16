@@ -1,5 +1,487 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-18T16:15:40+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">haoru’s Blog</title><subtitle>haoru&apos;s blog, something from my daily random thoughts</subtitle><author><name>Zhao Haoru</name><email>zhaohaoru@sjtu.edu.cn</email></author><entry><title type="html">react-navigation 6.x 使用指南 (3)</title><link href="http://localhost:4000/2022-09-18/react-navigation_3" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (3)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022-09-18/react-navigation_3</id><content type="html" xml:base="http://localhost:4000/2022-09-18/react-navigation_3"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part3）。
-<!--more--></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-06-16T14:06:52+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">haoru’s blog</title><subtitle>From SJTU, SE&lt;br&gt;Use blog to record my learning progress and random thoughts.&lt;br&gt;Word is cheap, show me your code.</subtitle><author><name>haoru</name></author><entry><title type="html">找工记录</title><link href="http://localhost:4000/2023/06/15/%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95.html" rel="alternate" type="text/html" title="找工记录" /><published>2023-06-15T00:00:00+08:00</published><updated>2023-06-15T00:00:00+08:00</updated><id>http://localhost:4000/2023/06/15/%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95</id><content type="html" xml:base="http://localhost:4000/2023/06/15/%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95.html"><![CDATA[<!--more-->]]></content><author><name>Haoru</name></author><category term="碎碎念" /><category term="找工作" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">大三总结</title><link href="http://localhost:4000/2023/06/14/%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93.html" rel="alternate" type="text/html" title="大三总结" /><published>2023-06-14T00:00:00+08:00</published><updated>2023-06-14T00:00:00+08:00</updated><id>http://localhost:4000/2023/06/14/%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93</id><content type="html" xml:base="http://localhost:4000/2023/06/14/%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93.html"><![CDATA[<!--more-->
+<blockquote>
+  <p>我热爱一切不彻底的事物 琥珀里的时间 微暗的火 一生都在半途而废 一生都怀抱热望</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>转眼间时间就来到了六月，大三一年即将结束，这是充满机遇和转折的一年：这一年我做了很多尝试，努力摆脱以往线性的思维方式，探索未来可能的发展方向，同时也遭遇了一些挫折的打击，导致最近一个月都处在一个浑浑噩噩、自暴自弃的状态。谨以此文记录我一年多以来的思考和生活，正好整理心情，重新出发。</p>
+
+<h2 id="part1-courses--exams">Part1: courses &amp; exams</h2>
+
+<p>在大三刚刚开始的时候，我顺利拿到了第二次国奖，不同于第一次的激动，这次我的心情非常平静。经过大二这一年，我已经对于卷成绩、卷素拓感到十分厌倦，考虑到本专业较离谱的卷度（可能是我太菜），想要拿到第三年的国奖，对于我来说还是要付出比较大的时间精力的（尤其是素拓），并且拿很多年国奖也没啥用，于是我决定在基本稳住成绩的同时多干些其他的事情。</p>
+
+<p>大三上学期仍旧是疫情时代，2/3的时间在上网课，对于我这种阿宅来讲，上网课无疑是极大利好：不用通勤，可以不听直播看回放，时间安排灵活自由。于是这个学期的课基本上都划水划过去了，但是常言道：“常在河边走，怎能不湿鞋”，这个学期美美错过了chp老师的随堂小测，还出现了老师上课点我回答问题叫了好几遍发现我不在的尴尬😇局面。</p>
+
+<p>到了十二月份的时候放开了疫情管控，学校出现了感染的高峰，看着水源里面的症状描述我有点害怕，于是决定润回家。结果在考试周前的一个周末、也就是元旦那天喜提新冠阳性（后来得知坚守学校的室友一直没阳🥲），考compiler的时候还在发烧。由于一个学期的摆烂 + 考试生病，最后成绩出来不太好（不过也还行），于是痛定思痛决定下个学期好好学习。</p>
+
+<p>结果到了大三下还是没有好好学习，这学期课少了一些，由于我决定试着找找实习，这个学期的课除了OS以外，其他的课基本上都摸过去了（甚至比上个学期摸得更厉害🤣），考试周因为心情原因更是在摆烂😢。</p>
+
+<h2 id="part2-coding">Part2: coding</h2>
+
+<p>这一年写的代码大概可以分为几个部分：labs &amp; minik8s，jump的project，ipads的实习project 还有 leetcode。</p>
+
+<p>大三上学期的compiler和CHFS文件系统，明显感觉要比大二下学期的lab要难上一些：compiler后面的几次迭代都要花上三天甚至更长的时间去完成，通过这个lab额外收获了一些 modern C++ 的训练；CHFS的随机test经常让我debug到人恍惚，raft部分有些难但是收获也很大（我觉得CHFS确实是写过最有意思的课内lab）。大三下学期的chcore压力就小了很多，但是需要写报告👿。</p>
+
+<p>9月份开始参加和jump合作的项目，写matching engine + rdma优化，基本上在10月份rush完了matching engine + gateway的逻辑，说实话，这个项目是我第一次从头开始搭C++项目的架构，最后写出来有很多冗余的地方，出现了无意义的多次拷贝，后来2月份的时候又重构了一次；11月中旬的时候开始尝试rdma，rdmacm和ibverbs确实非常不好用，翻遍了GitHub，最后找到了一份代码并把它改成了可以支持多个client和多次传送消息的echo版本，但是发现还是很难做到io多路复用（这个版本最后直接用在最后的测试任务上了，还是为我们节省了一些时间），最后决定用<code class="language-plaintext highlighter-rouge">socket like</code>的rsocket，事情一下子就变得简单了。</p>
+
+<p>10月份的时候通过了ipads的面试，11月底的时候开始做项目，和yy还有沈哥一组，我负责写云服务器上的部分，难点主要在foundationDB的SQL支持（同时还要支持索引），一开始图方便用python的第三方库做SQL解析，后来觉得这样对于SQL的支持还是太差，于是决定用java重写整个项目，用calcite做foundationDB sql adaptor，后来又仿照InfluxDB做了时序数据库的优化，本来想要做成类似源码中java api的那种形式，可是最后还是偷懒用了grpc。</p>
+
+<p>做完ipads的项目后，我和yy还有沈哥一起写了云OS的miniK8s，经过前面三四个月的配合，我们这个项目的合作非常愉快。与此同时，经过前面两个项目的毒打，我感觉k8s写的过程还是比较流畅轻松的。</p>
+
+<p>这一年中，断断续续刷了不少leetcode，大三上学期出去隔离的时候，不想写lab就在刷leetcode，寒假不想做项目的时候也在刷leetcode，不得不说刷leetcode是一件非常让人容易快速获得成就感的事情。3、4月份的时候在找实习，基本上每天都在坚持刷题，做题量基本上double了。</p>
+
+<h2 id="part3-future--thinking">Part3: future &amp; thinking</h2>
+
+<p>在大二的时候，我对于未来的期望是留在ipads读个硕士，硕士毕业之后找份大厂的工作。22年的春招让我意识到了互联网寒冬的威力，但是也想着是先读个硕士观望一下。大三刚刚开始的时候，任老师在群里发了jump的项目，wjr和我说这可能是个不错的机会，于是我也去试着报名了，接下来跟着任老师做了将近半年的项目（这个项目实在是拖了太久），想着如果有实习的机会就去试试看。悲催的是2月份项目快要结束的时候，公司那边说缩招，只有一个实习的名额😇，当时我在忙着ipads那边项目的重构，和任老师讲我可能没有什么时间搞jump这个项目了，没想到就被任老师说服去尝试一下optiver了🤣。</p>
+
+<p>接下来便是漫长的找工之旅，除了optiver以外还顺便投了BAT几家（后来ipads通知不许暑期实习，也就没有接着投），发现最难的竟然是过简历初筛和英语口语。optiver面了一个多月，走完流程还是被waiting list了😥，当时还是挺失落的，毕竟自认为每一场面试都在非常认真的准备，对于这个offer也有很强烈的期望。</p>
+
+<p>最近一直在复盘找工作的这几个月，不得不说自己的能力真的和dream job的bar之间还有一定的差距，于是决定下面还是安心念书，多写代码多看书。但是总的说来，找工这几个月，确实让我好好复习了基础知识，同时刷了不少leetcode，将来还能用得到，总之不亏。</p>
+
+<h2 id="summary">Summary</h2>
+<p>这一年确实非常精彩，发生了很多事情，虽然兜兜转转还是回到了计划的原点，但是尽力了便不会后悔。最大的缺憾是没有好好玩😤，大三下学期明明这么空闲。希望暑假和大四能够多出去走走，过得更加轻松一些。</p>]]></content><author><name>Haoru</name></author><category term="碎碎念" /><category term="总结" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Github pages + jekyll 博客搭建</title><link href="http://localhost:4000/2023/06/14/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html" rel="alternate" type="text/html" title="Github pages + jekyll 博客搭建" /><published>2023-06-14T00:00:00+08:00</published><updated>2023-06-14T00:00:00+08:00</updated><id>http://localhost:4000/2023/06/14/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA</id><content type="html" xml:base="http://localhost:4000/2023/06/14/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html"><![CDATA[<!--more-->
+
+<p>Github pages + jekyll，算是比较简单古早的博客搭建方式，本着能用就行的原则，我选择了这个办法。</p>
+
+<p>一年之前曾经搭建过博客，写了几篇post之后就搁置下来了，这次换了电脑，想着给博客换个主题（之前的windows代码块渲染太丑了），这里简单记录一下流程：</p>
+
+<h4 id="0-环境">0. 环境</h4>
+
+<ul>
+  <li>macbook m1</li>
+  <li>已经安装好了<code class="language-plaintext highlighter-rouge">homebrew</code></li>
+</ul>
+
+<h4 id="1-安装ruby">1. 安装ruby</h4>
+
+<p>mac自带ruby，可是版本太老（我是<code class="language-plaintext highlighter-rouge">2.6.0</code>)，我们需要安装<code class="language-plaintext highlighter-rouge">3.x</code>版本</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>ruby
+<span class="c"># 添加ruby路径到环境变量</span>
+<span class="nb">echo</span> <span class="s1">'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.zshrc
+<span class="nb">source</span> ~/.zshrc
+</code></pre></div></div>
+
+<p>然后在终端查看ruby安装位置与版本信息:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which ruby 
+ruby <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>显示如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby 3.2.2 <span class="o">(</span>2023-03-30 revision e51014f9c0<span class="o">)</span> <span class="o">[</span>arm64-darwin22]
+</code></pre></div></div>
+
+<h4 id="2-使用ruby的包管理器gem安装jekyll及bundle">2. 使用ruby的包管理器<code class="language-plaintext highlighter-rouge">gem</code>安装Jekyll及bundle</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 移除默认镜像</span>
+<span class="nb">sudo </span>gem sources <span class="nt">--remove</span> https://rubygems.org/
+<span class="c"># 添加国内镜像</span>
+<span class="nb">sudo </span>gem sources <span class="nt">-a</span> http://gems.ruby-china.com/
+<span class="c"># 查看镜像列表</span>
+gem sources <span class="nt">-l</span>
+<span class="c"># 安装bundler和jekyll</span>
+<span class="nb">sudo </span>gem <span class="nb">install</span> <span class="nt">--user-install</span> bundler jekyll
+<span class="c"># 将gem安装的包路径添加到环境变量</span>
+<span class="nb">echo</span> <span class="s1">'export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.zshrc
+<span class="nb">source</span> ~/.zshrc
+</code></pre></div></div>
+
+<h4 id="3-trouble-shooting">3. trouble shooting</h4>
+
+<p>检验是否安装成功</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>结果报错：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:290:in <span class="sb">`</span>raise_not_found!<span class="s1">': Could not find gem '</span>liquid-md5<span class="s1">' in locally installed gems. (Bundler::GemNotFound)
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:343:in `block in prepare_dependencies'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:328:in <span class="sb">`</span>each<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:328:in `map'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:328:in <span class="sb">`</span>prepare_dependencies<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:53:in `setup_solver'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/resolver.rb:28:in <span class="sb">`</span>start<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/definition.rb:553:in `start_resolution'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/definition.rb:290:in <span class="sb">`</span>resolve<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/definition.rb:506:in `materialize'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/definition.rb:197:in <span class="sb">`</span>specs<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/definition.rb:255:in `specs_for'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler/runtime.rb:18:in <span class="sb">`</span>setup<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/bundler-2.4.14/lib/bundler.rb:162:in `setup'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/jekyll-4.3.2/lib/jekyll/plugin_manager.rb:52:in <span class="sb">`</span>require_from_bundler<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/gems/jekyll-4.3.2/exe/jekyll:11:in `&lt;top (required)&gt;'</span>
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/bin/jekyll:25:in <span class="sb">`</span>load<span class="s1">'
+        from /Users/zhaohaoru/.gem/ruby/3.2.0/bin/jekyll:25:in `&lt;main&gt;'</span>
+</code></pre></div></div>
+
+<p>这里的原因是bundle的版本出错，如果单独执行<code class="language-plaintext highlighter-rouge">bundle install</code>, 我得到了报错：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fetching gem metadata from https://rubygems.org/............
+Resolving dependencies...
+Could not find compatible versions
+
+Because the current Bundler version <span class="o">(</span>2.4.14<span class="o">)</span> does not satisfy bundler ~&gt; 2.2.28
+  and Gemfile depends on bundler ~&gt; 2.2.28,
+  version solving has failed.
+
+Your bundle requires a different version of Bundler than the one you<span class="s1">'re running.
+Install the necessary version with `gem install bundler:2.2.34` and rerun bundler using `bundle _2.2.34_ install`
+</span></code></pre></div></div>
+
+<p>根据报错信息，执行以下命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>gem <span class="nb">install </span>bundler:2.2.34
+bundle _2.2.34_ <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>再次执行<code class="language-plaintext highlighter-rouge">jekyll -v</code>就可以了</p>
+
+<h4 id="4-创建博客">4. 创建博客</h4>
+
+<p>到官网上找一个你喜欢的主题：<a href="http://jekyllthemes.org/">Jekyll Themes</a> （说实话感觉jekyll没咋有简洁且好看的主题</p>
+
+<p>我选择了这一个主题：<a href="http://jekyllthemes.org/themes/dash/">Dash (jekyllthemes.org)</a></p>
+
+<p><img src="/assets/my_pics/image-20230614195251087.png" alt="image-20230614195251087" style="zoom:50%;" /></p>
+
+<p>进入<code class="language-plaintext highlighter-rouge">Homepage</code>，将这个仓库的内容拷贝到自己名为<code class="language-plaintext highlighter-rouge">[username].github.io</code>的仓库中</p>
+
+<h4 id="5-本地调试">5. 本地调试</h4>
+
+<p>在本地仓库对应的文件夹的terminal中，运行以下命令启动服务：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll server
+</code></pre></div></div>
+
+<p>在浏览器中打开如下网址查看效果：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:4000
+</code></pre></div></div>
+
+<p>这时候，几乎所有的修改都可以实时渲染，但是注意：<strong>如果修改了config.yml配置或其他yml文件的配置,那就需要control+C中止服务并重启服务来刷新配置.</strong></p>
+
+<h4 id="6-更新内容">6. 更新内容</h4>
+
+<p>所有的帖子都放在<code class="language-plaintext highlighter-rouge">_posts</code>目录下，每个帖子都是一个<code class="language-plaintext highlighter-rouge">.md</code>文件，文件名格式为<code class="language-plaintext highlighter-rouge">yyyy-mm-dd-title.md</code>，其中<code class="language-plaintext highlighter-rouge">title</code>是帖子的标题，<code class="language-plaintext highlighter-rouge">yyyy-mm-dd</code>是帖子的日期</p>
+
+<h3 id="参考资料">参考资料</h3>
+
+<p><a href="http://jekyllcn.com/docs/installation/">安装 - Jekyll • 简单静态博客网站生成器 (jekyllcn.com)</a></p>
+
+<p><a href="https://blog.csdn.net/qq_41437512/article/details/115179412">m1芯片Mac安装jekyll+搭建GitHub</a></p>]]></content><author><name>Haoru</name></author><category term="Blogs" /><category term="macbook" /><category term="配环境" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">git常用命令</title><link href="http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html" rel="alternate" type="text/html" title="git常用命令" /><published>2023-05-18T00:00:00+08:00</published><updated>2023-05-18T00:00:00+08:00</updated><id>http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4</id><content type="html" xml:base="http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html"><![CDATA[<!--more-->
+
+<p>我常用的git命令，记录一下：</p>
+
+<h4 id="1-放弃本地的修改强制远程覆盖本地">1. 放弃本地的修改强制远程覆盖本地</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git fetch <span class="nt">--all</span>
+  git reset <span class="nt">--hard</span> origin/master
+</code></pre></div></div>
+
+<h4 id="2-获取远程分支前记得要更新">2. 获取远程分支前记得要更新</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git fetch
+</code></pre></div></div>
+
+<h4 id="3-将本地分支提交到远程非主分支上">3. 将本地分支提交到远程非主分支上</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin &lt;远程分支名&gt;:&lt;本地分支名&gt; // 将远程指定分支 拉取到 本地指定分支上
+......
+git pull origin &lt;远程分支名&gt; // 将远程指定分支 拉取到 本地当前分支上
+......
+git push origin &lt;本地分支名&gt;:&lt;远程分支名&gt; // 将本地当前分支 推送到 远程指定分支上
+git push origin &lt;本地分支名&gt; // 将本地当前分支 推送到 与本地当前分支同名的远程分支上
+git push // 将本地当前分支 推送到 与本地当前分支同名的远程分支上
+git push <span class="nt">-u</span> origin &lt;本地分支名&gt; // 将本地分支与远程同名分支相关联
+</code></pre></div></div>
+
+<h4 id="4-github文件夹有白色箭头并且不能打开的解决办法">4. github文件夹有白色箭头并且不能打开的解决办法</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1、删除文件夹里面的.git文件夹
+
+2、执行git <span class="nb">rm</span> <span class="nt">--cached</span> <span class="o">[</span>文件夹名]
+
+3、执行git add <span class="o">[</span>文件夹名]
+
+4、执行git commit <span class="nt">-m</span> <span class="s2">"msg"</span>
+
+5、执行git push origin <span class="o">[</span>branch_name] 
+</code></pre></div></div>
+
+<h4 id="5-强制push到远程">5. 强制push到远程</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-u</span> origin master <span class="nt">-f</span>
+</code></pre></div></div>
+
+<h4 id="6-快速关联修改git远程仓库地址">6. 快速关联/修改Git远程仓库地址</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nt">-v</span> //查看git对应的远程仓库地址
+git remote <span class="nb">rm </span>origin //删除关联对应的远程仓库地址
+git remote <span class="nt">-v</span> //查看是否删除成功，如果没有任何返回结果，表示OK
+git remote add origin https://github.com/developers-youcong/Metronic_Template.git //重新关联git远程仓库地址
+</code></pre></div></div>
+
+<h4 id="7-如何将本地git仓库推送到远程">7. 如何将本地git仓库推送到远程</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>首先在github上面创建新仓库（注意不要添加任何文件）
+修改关联远程仓库将关联远程仓库改为新仓库的ssh地址
+</code></pre></div></div>
+
+<h4 id="8-如何更换本地git对应的远程并更换分支">8. 如何更换本地git对应的远程并更换分支</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>....
+git push <span class="nt">--set-upstream</span> origin master
+</code></pre></div></div>
+
+<ul>
+  <li>法2</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 先修改对应的远程git库地址
+// 在idea的图形化Git界面，对本地分支进行推送
+</code></pre></div></div>
+
+<h4 id="9-git删除分支">9. git删除分支</h4>
+
+<ul>
+  <li>git 删除本地分支</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch <span class="nt">-d</span> &lt;BranchName&gt;
+</code></pre></div></div>
+<ul>
+  <li>
+    <p>git 删除远程分支</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 查看远程分支
+git branch <span class="nt">-a</span>
+// 假如显示远程分支的名字是<span class="sb">`</span>origin/test<span class="sb">`</span>
+git push origin <span class="nt">-d</span> <span class="nb">test</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="10-取消当前的merge操作">10. 取消当前的merge操作</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git merge <span class="nt">--abort</span>
+</code></pre></div></div>
+
+<h4 id="11-丢弃掉目前所有修改没有add过">11. 丢弃掉目前所有修改（没有add过）</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git clean <span class="nt">-fdx</span>
+</code></pre></div></div>
+
+<h4 id="12-在gitignore的时候忽略已经跟踪过的文件">12. 在gitignore的时候忽略已经跟踪过的文件</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git <span class="nb">rm</span> <span class="nt">--cached</span> &lt;file_path&gt;
+</code></pre></div></div>
+
+<h4 id="13-解决问题the-following-untracked-working-tree-files-would-be-overwritten-by-merge">13. 解决问题：The following untracked working tree files would be overwritten by merge</h4>
+
+<p>这个错误通常发生在尝试从远程仓库拉取代码时，但本地工作区存在未跟踪的文件，而这些文件与即将拉取的代码发生了冲突。为了解决这个问题，可以尝试以下几种方</p>
+
+<ol>
+  <li>
+    <p>提交或保存本地的修改：如果对工作区的修改是有意义的，可以先提交或保存这些修改。可以使用以下命令将修改的文件添加到暂存区并提交：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add .
+git commit -m "保存本地修改"
+</code></pre></div>    </div>
+
+    <p>或者使用适当的命令（如 <code class="language-plaintext highlighter-rouge">git stash</code>）将修改的文件暂存起来，以便稍后再应用这些修改。</p>
+  </li>
+  <li>
+    <p>放弃本地的修改：如果对工作区的修改并不重要，可以放弃这些修改，并清理工作区。使用以下命令将工作区恢复为与远程仓库一致的状态：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard HEAD
+git clean -df
+</code></pre></div>    </div>
+
+    <p>第一条命令会将工作区和暂存区的修改恢复为最近的提交状态，第二条命令会删除未被跟踪的文件和目录。</p>
+  </li>
+  <li>
+    <p>手动合并冲突：如果想保留本地的修改并尝试手动解决冲突，可以使用以下命令拉取代码并进行合并：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch
+git merge origin/develop
+</code></pre></div>    </div>
+
+    <p>这会将远程仓库的 “develop” 分支与本地的当前分支进行合并。然后，可以手动解决冲突，并在解决完冲突后提交修改。</p>
+  </li>
+</ol>]]></content><author><name>Haoru</name></author><category term="Git" /><category term="Commands" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">docker命令记录</title><link href="http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html" rel="alternate" type="text/html" title="docker命令记录" /><published>2023-05-15T00:00:00+08:00</published><updated>2023-05-15T00:00:00+08:00</updated><id>http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4</id><content type="html" xml:base="http://localhost:4000/2023/05/15/docker%E5%91%BD%E4%BB%A4.html"><![CDATA[<!--more-->
+
+<p>po一下最近使用到的docker的命令用法，一直都记不住要经常现查 :(</p>
+
+<h4 id="1-删除镜像">1. 删除镜像</h4>
+
+<ol>
+  <li>要按照镜像名称删除 Docker 中的镜像，可以使用 <code class="language-plaintext highlighter-rouge">docker rmi</code> 命令。</li>
+</ol>
+
+<p>命令格式如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rmi &lt;image_name&gt;
+</code></pre></div></div>
+
+<p>其中 <code class="language-plaintext highlighter-rouge">&lt;image_name&gt;</code> 是要删除的镜像的名称或镜像 ID。</p>
+
+<p>docker删除构建失败的镜像（批量删除没有名字的镜像）</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rmi <span class="si">$(</span>docker images <span class="nt">-f</span> <span class="s2">"dangling=true"</span> <span class="nt">-q</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h4 id="2-删除container">2. 删除container</h4>
+
+<p>删除所有不再运行的container</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">rm</span> <span class="si">$(</span>docker ps <span class="nt">-aq</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h4 id="3-以某一镜像构建容器">3. 以某一镜像构建容器</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-p</span> 5000:5000 <span class="nt">--name</span> my_container <span class="nt">-d</span> your_image_name
+</code></pre></div></div>
+
+<p>在运行容器之后，可以使用 <code class="language-plaintext highlighter-rouge">docker ps</code> 命令来查看运行的容器。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+</code></pre></div></div>
+
+<h4 id="4-进入容器">4. 进入容器</h4>
+
+<p>如果需要进入容器内部进行交互，可以使用 <code class="language-plaintext highlighter-rouge">docker exec</code> 命令。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> my_container /bin/sh
+</code></pre></div></div>
+
+<h4 id="5-查看容器">5. 查看容器</h4>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">docker ps</code> 命令来查看运行的容器。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+</code></pre></div></div>
+
+<p>显示所有包括已经停止的容器</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="nt">-a</span>
+</code></pre></div></div>
+
+<h4 id="6-查看docker容器对应的ip">6. 查看docker容器对应的ip</h4>
+
+<ol>
+  <li>要查看 Docker 容器的 IP 地址，可以使用 <code class="language-plaintext highlighter-rouge">docker inspect</code> 命令。该命令可以获取容器的详细信息，包括 IP 地址。</li>
+</ol>
+
+<p>以下是一个示例命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect <span class="nt">-f</span> <span class="s1">''</span> &lt;container_id_or_name&gt;
+</code></pre></div></div>
+
+<p>在上面的命令中，需要将 <code class="language-plaintext highlighter-rouge">&lt;container_id_or_name&gt;</code> 替换为要查询的容器的 ID 或名称。命令执行后，它会输出容器的 IP 地址。</p>
+
+<ol>
+  <li>如果只想获取容器的 IP 地址，可以使用 <code class="language-plaintext highlighter-rouge">--format</code> 选项来指定输出格式。</li>
+</ol>
+
+<p>以下是示例命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect <span class="nt">--format</span> <span class="s1">''</span> &lt;container_id_or_name&gt;
+</code></pre></div></div>
+
+<p>请确保在命令中替换 <code class="language-plaintext highlighter-rouge">&lt;container_id_or_name&gt;</code> 为实际的容器 ID 或名称。</p>
+
+<ol>
+  <li>如果想要一次性查看所有容器的 IP 地址，可以结合使用 <code class="language-plaintext highlighter-rouge">docker ps</code> 和 <code class="language-plaintext highlighter-rouge">docker inspect</code> 命令。</li>
+</ol>
+
+<p>以下是一个示例命令：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="nt">-q</span> | xargs <span class="nt">-n</span> 1 docker inspect <span class="nt">-f</span> <span class="s1">' - '</span>
+</code></pre></div></div>
+
+<p>该命令会列出所有容器的 ID 和对应的 IP 地址。</p>
+
+<p>请注意，<em>上述命令只能查看正在运行的容器的 IP 地址。如果容器已经停止，它将不会显示相应的 IP 地址</em>。</p>
+
+<h4 id="7-使用另外一台机器上的docker-registry">7. 使用另外一台机器上的docker registry</h4>
+
+<p>要使用另一台机器上的 Docker Registry，需要进行以下步骤：</p>
+
+<ol>
+  <li>
+    <p><strong>在另一台机器上设置 Docker Registry：</strong> 首先，在另一台机器上启动一个 Docker Registry 服务。可以使用官方的 Docker Registry 镜像来运行一个私有的 Registry。可以使用以下命令启动 Registry 容器：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -p 5000:5000 --restart=always --name registry registry:2
+</code></pre></div>    </div>
+
+    <p>这将在端口 5000 上启动 Docker Registry 并持续运行。</p>
+  </li>
+  <li>
+    <p><strong>配置 Docker 客户端：</strong> 需要在本地的 Docker 客户端上配置它来使用另一台机器上的 Docker Registry。将 Docker 客户端配置为信任另一台机器上的 Registry。为此，可以在 Docker 客户端上创建一个配置文件 <code class="language-plaintext highlighter-rouge">daemon.json</code>（如果不存在），并添加以下内容：</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"insecure-registries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;registry-hostname&gt;:&lt;registry-port&gt;"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>其中 <code class="language-plaintext highlighter-rouge">&lt;registry-hostname&gt;</code> 是另一台机器的主机名或 IP 地址，<code class="language-plaintext highlighter-rouge">&lt;registry-port&gt;</code> 是 Registry 服务的端口（默认为 5000）。保存配置文件后，重启 Docker 服务，使配置生效。</p>
+  </li>
+  <li>
+    <p><strong>标记镜像并推送到 Registry：</strong> 现在可以将本地的 Docker 镜像标记为另一台机器上的 Registry 地址，并推送到该 Registry。假设有一个名为 <code class="language-plaintext highlighter-rouge">my-image</code> 的镜像，可以使用以下命令来进行标记和推送：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker tag my-image &lt;registry-hostname&gt;:&lt;registry-port&gt;/my-image
+docker push &lt;registry-hostname&gt;:&lt;registry-port&gt;/my-image
+</code></pre></div>    </div>
+
+    <p>将 <code class="language-plaintext highlighter-rouge">&lt;registry-hostname&gt;</code> 替换为另一台机器的主机名或 IP 地址，<code class="language-plaintext highlighter-rouge">&lt;registry-port&gt;</code> 替换为 Registry 服务的端口。</p>
+  </li>
+  <li>
+    <p><strong>从 Registry 拉取镜像：</strong> 如果想从另一台机器上的 Registry 拉取镜像，可以使用以下命令：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull &lt;registry-hostname&gt;:&lt;registry-port&gt;/my-image
+</code></pre></div>    </div>
+
+    <p>同样，将 <code class="language-plaintext highlighter-rouge">&lt;registry-hostname&gt;</code> 替换为另一台机器的主机名或 IP 地址，<code class="language-plaintext highlighter-rouge">&lt;registry-port&gt;</code> 替换为 Registry 服务的端口。</p>
+  </li>
+</ol>
+
+<p>通过以上步骤，就可以使用另一台机器上的 Docker Registry 进行镜像的推送和拉取操作。</p>]]></content><author><name>Haoru</name></author><category term="Docker" /><category term="Commands" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">macbook m1 + VMware Fusion 配置ubuntu虚拟机</title><link href="http://localhost:4000/2023/04/01/mac-m1%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.html" rel="alternate" type="text/html" title="macbook m1 + VMware Fusion 配置ubuntu虚拟机" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/mac-m1%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA</id><content type="html" xml:base="http://localhost:4000/2023/04/01/mac-m1%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.html"><![CDATA[<!--more-->
+<h3 id="1-环境">1. 环境</h3>
+<ol>
+  <li>
+    <p>macbook m1</p>
+  </li>
+  <li>
+    <p>VMware Fusion 13.0.1</p>
+  </li>
+  <li>
+    <p>Ubuntu 22.04</p>
+  </li>
+</ol>
+
+<h3 id="2-vmware-fusion-安装">2. VMware Fusion 安装</h3>
+<p>许可证可以到GitHub上面找</p>
+
+<h3 id="3-注意事项">3. 注意事项</h3>
+<p>VMware Fusion的易用程度远远不如windows下的VMware Workstation，不能直接安装ubuntu的桌面版，必须先安装server版，再升级； arm架构在安装过程中也带来了一些问题，以下是我安装过程中使用的一些比较有用的参考：</p>
+<ol>
+  <li>
+    <p>安装虚拟机，先装server版，再升级桌面版</p>
+
+    <p><a href="https://blog.csdn.net/qq_24950043/article/details/125774990">mac pro M1(ARM)安装：ubuntu桌面版虚拟机（五）</a></p>
+
+    <p><a href="https://blog.csdn.net/qq_24950043/article/details/123764210">mac pro M1(ARM)安装：ubuntu虚拟机（四）</a></p>
+  </li>
+  <li>
+    <p>换源不能用<code class="language-plaintext highlighter-rouge">ubuntu</code>， 要用<code class="language-plaintext highlighter-rouge">ubuntu-ports</code></p>
+
+    <p><a href="https://mirrors-i.tuna.tsinghua.edu.cn/help/ubuntu-ports/">ubuntu—ports ｜ 清华大学开源软件镜像站</a></p>
+  </li>
+</ol>]]></content><author><name>Haoru</name></author><category term="macbook" /><category term="配环境" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (3)</title><link href="http://localhost:4000/2022/09/18/react-navigation_3.html" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (3)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022/09/18/react-navigation_3</id><content type="html" xml:base="http://localhost:4000/2022/09/18/react-navigation_3.html"><![CDATA[<!--more-->
 
 <p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
 
@@ -13,14 +495,14 @@
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">createNativeStackNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span>
+<span class="kd">function</span> <span class="nf">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+    <span class="k">return </span><span class="p">(</span>
         <span class="p">......</span>
         <span class="o">&lt;</span><span class="nx">Button</span>
             <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Details</span><span class="dl">"</span>
             <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="cm">/* 1. Navigate to the Details route with params */</span>
-            <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Details</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">navigation</span><span class="p">.</span><span class="nf">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Details</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
                 <span class="na">itemId</span><span class="p">:</span> <span class="mi">86</span><span class="p">,</span>
                 <span class="na">otherParam</span><span class="p">:</span> <span class="dl">'</span><span class="s1">anything you want here</span><span class="dl">'</span><span class="p">,</span>
             <span class="p">});</span>
@@ -30,19 +512,19 @@
     <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">DetailsScreen</span><span class="p">({</span> <span class="nx">route</span><span class="p">,</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">DetailsScreen</span><span class="p">({</span> <span class="nx">route</span><span class="p">,</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
     <span class="cm">/* 2. Get the param */</span>
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">itemId</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">otherParam</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
-    <span class="k">return</span> <span class="p">(</span>
+    <span class="k">return </span><span class="p">(</span>
     <span class="p">......</span>
     <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nf">createNativeStackNavigator</span><span class="p">();</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
@@ -69,7 +551,7 @@
 <span class="c1">// 参数的传出</span>
 <span class="kd">const</span> <span class="nx">Card</span> <span class="o">=</span> <span class="p">({</span><span class="nx">props</span><span class="p">,</span> <span class="nx">userId</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="p">...</span>
-    <span class="k">return</span> <span class="p">(</span>
+    <span class="k">return </span><span class="p">(</span>
         <span class="p">...</span>
             <span class="o">&lt;</span><span class="nx">Link</span>
             <span class="nx">to</span><span class="o">=</span><span class="p">{{</span>
@@ -93,7 +575,7 @@
     <span class="kd">const</span> <span class="p">{</span><span class="nx">userId</span><span class="p">}</span> <span class="o">=</span> <span class="nx">route</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
     <span class="kd">const</span> <span class="p">{</span><span class="nx">groupId</span><span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">groupId</span><span class="p">;</span>
 
-    <span class="k">return</span> <span class="p">(</span>
+    <span class="k">return </span><span class="p">(</span>
         <span class="o">&lt;&gt;</span>
         <span class="p">...</span>
         <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
@@ -104,7 +586,251 @@
 <p>在使用<code class="language-plaintext highlighter-rouge">Link</code>的时候,<code class="language-plaintext highlighter-rouge">screen</code>是我们希望导航到的页面名字（这个名字必须已经在<code class="language-plaintext highlighter-rouge">Navigator</code>中定义过了），<code class="language-plaintext highlighter-rouge">params</code>中使用<code class="language-plaintext highlighter-rouge">key:value</code>方式传递参数，在目标页面使用<code class="language-plaintext highlighter-rouge">route.params</code>接受参数（注意在函数参数中一定要加入<code class="language-plaintext highlighter-rouge">route</code>）。</p>
 
 <h2 id="结语">结语</h2>
-<p>通过这三篇文章，我基本上将我所接触到的<code class="language-plaintext highlighter-rouge">react-navigation</code>的基本用法和使用中遇到问题的解决方案做了介绍。<code class="language-plaintext highlighter-rouge">react-navigation</code>的更新还是非常快速的，并且相对于历史版本，语法上有了比较大的变动，最后还是要以<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>作为最重要的参考。</p>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part3）。]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (1)</title><link href="http://localhost:4000/2022-09-18/react-navigation_1" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (1)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022-09-18/react-navigation_1</id><content type="html" xml:base="http://localhost:4000/2022-09-18/react-navigation_1"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。
+<p>通过这三篇文章，我基本上将我所接触到的<code class="language-plaintext highlighter-rouge">react-navigation</code>的基本用法和使用中遇到问题的解决方案做了介绍。<code class="language-plaintext highlighter-rouge">react-navigation</code>的更新还是非常快速的，并且相对于历史版本，语法上有了比较大的变动，最后还是要以<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>作为最重要的参考。</p>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (2)</title><link href="http://localhost:4000/2022/09/18/react-navigation_2.html" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (2)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022/09/18/react-navigation_2</id><content type="html" xml:base="http://localhost:4000/2022/09/18/react-navigation_2.html"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part2）。
+<!--more--></p>
+
+<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
+
+<p>在这篇文章中，我将介绍<code class="language-plaintext highlighter-rouge">Native Stack Navigator</code>的使用以及<code class="language-plaintext highlighter-rouge">Drawer Navigation</code>的使用。</p>
+
+<h2 id="native-stack-navigator">Native Stack Navigator</h2>
+<h3 id="基本用法">基本用法</h3>
+<p>如果不想显示任何导航栏，<code class="language-plaintext highlighter-rouge">stack navigator</code>无疑是个最好的选择，这是最基本的页面导航，它维护了一个栈结构，进入一个页面相当于在栈里压入了一个页面，返回操作相当于在栈中弹出一个页面。在<a href="https://reactnavigation.org/docs/native-stack-navigator/">官方文档</a>给出了基本的用法：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createNativeStackNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nf">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Profile</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Profile</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">ProfileScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Notifications</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Settings</span><span class="dl">"</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)}</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">SettingsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nf">createNativeStackNavigator</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nf">MyStack</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">MyStack</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>这里<code class="language-plaintext highlighter-rouge">createNativeStackNavigator</code>创建了一个<code class="language-plaintext highlighter-rouge">stack</code>,在不同的页面之间，点击<code class="language-plaintext highlighter-rouge">Button</code>触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面，如果我们使用的是真机的话，后退手势也可以返回上一级页面。实现的效果如下：</p>
+
+<p><img src="/assets/my_pics/stack%2000_00_00-00_00_30.gif" alt="show" /></p>
+
+<p>同样，这里默认还是会显示header的，如果我们不想显示header的话，也可以在<code class="language-plaintext highlighter-rouge">Stack.Navigator</code>里面添加<code class="language-plaintext highlighter-rouge">headerShown: false</code>属性，原则上第一个页面是打开的默认页面，我们也可以使用<code class="language-plaintext highlighter-rouge">initialRouteName</code>指定默认页面，如下所示：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span> 
+    <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span>
+    <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{{</span><span class="na">headerShown</span><span class="p">:</span> <span class="kc">false</span><span class="p">}}</span>
+    <span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
+</span></code></pre></div></div>
+<h3 id="进阶不同navigator之间的嵌套">进阶：不同navigator之间的嵌套</h3>
+<p>如果我们希望做一个购物网站，浏览页底部显示tab导航栏，详情页面等一些页面不显示底部的tab导航栏，那我们可以将tab导航栏包裹后作为一个<code class="language-plaintext highlighter-rouge">stack.screen</code>，而其他不需要显示底部tab导航栏的也作为同级的<code class="language-plaintext highlighter-rouge">stack.screen</code>，示例如下：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">createBottomTabNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">NavigationContainer</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createNativeStackNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nf">createBottomTabNavigator</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">Route</span> <span class="o">=</span> <span class="nf">createNativeStackNavigator</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nf">TabWrapper</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
+        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">首页</span><span class="dl">"</span>
+        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreenWrapper</span><span class="p">}</span>
+        <span class="nx">options</span><span class="o">=</span>
+      <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="p">.....</span>
+    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NativeBaseProvider</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Navigator</span>
+          <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Welcome</span><span class="dl">"</span>
+          <span class="nx">screenOptions</span><span class="o">=&gt;</span>
+          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Detail</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">DetailScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>          <span class="p">......</span>
+          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span>
+            <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">TabWrapper</span><span class="dl">"</span>
+            <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">TabWrapper</span><span class="p">}</span>
+            <span class="nx">options</span><span class="o">=</span>
+          <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="sr">/Route.Navigator</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NativeBaseProvider</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="drawer-navigation">Drawer Navigation</h2>
+<h3 id="基本用法-1">基本用法</h3>
+<p><code class="language-plaintext highlighter-rouge">Drawer Navigation</code>实现了一个左侧的可收起导航栏，基本使用方法可见<a href="https://reactnavigation.org/docs/drawer-based-navigation">官方文档</a></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createDrawerNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nf">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span>
+        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
+        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to notifications</span><span class="dl">"</span>
+      <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nf">goBack</span><span class="p">()}</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back home</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nf">createDrawerNavigator</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span> <span class="nx">useLegacyImplementation</span> <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>在<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>中也可以用触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面,或者使用真机回退手势实现页面的回退；和<code class="language-plaintext highlighter-rouge">Tab Navigator</code>一样，同样也可以将<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>嵌套到<code class="language-plaintext highlighter-rouge">Stack Navigator</code>。样例的效果如下：</p>
+
+<p><img src="/assets/my_pics/drawer%2000_00_00-00_00_30.gif" alt="show" /></p>
+
+<h3 id="进阶参数传递">进阶：参数传递</h3>
+<p>假如我们希望使用<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>实现一个分类页面，渲染效果基本相同，但是传递的参数不同导致内容不同，为了不简单地将渲染效果的代码简单复制粘贴多遍，造成大量代码冗余，我们可以使用一个<code class="language-plaintext highlighter-rouge">SwitchScreen{i}</code>作为中间桥梁，不同的<code class="language-plaintext highlighter-rouge">SwitchScreen</code>向最终渲染效果的<code class="language-plaintext highlighter-rouge">RenderScreen</code>传递不同的参数，代码如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">useState</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">ActivityIndicator</span><span class="p">,</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">createDrawerNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
+
+
+<span class="kd">const</span> <span class="nx">RenderScreen</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">RenderScreen props:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">props</span><span class="p">);</span>
+
+    <span class="nx">React</span><span class="p">.</span><span class="nf">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="p">....</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="p">[]);</span>
+
+    <span class="k">return </span><span class="p">(</span>
+        <span class="p">.....</span>
+    <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// SwtichScreen 用于不同类别页面的渲染，起到桥梁作用</span>
+<span class="kd">function</span> <span class="nf">SwitchScreen1</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">SwitchScreen2</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别1</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">SwitchScreen3</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别2</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">SwitchScreen4</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别3</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">SwitchScreen5</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别4</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">SwitchScreen6</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别5</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nf">createDrawerNavigator</span><span class="p">();</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">BrowseScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span>
+      <span class="nx">useLegacyImplementation</span>
+      <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span>
+      <span class="nx">drawerBackgroundColor</span><span class="o">=</span><span class="dl">"</span><span class="s2">#fda4af</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen1</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别1</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen2</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别2</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen3</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别3</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen4</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别4</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen5</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别5</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen6</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+</code></pre></div></div>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part2）。]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (1)</title><link href="http://localhost:4000/2022/09/18/react-navigation_1.html" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (1)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022/09/18/react-navigation_1</id><content type="html" xml:base="http://localhost:4000/2022/09/18/react-navigation_1.html"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。
 <!--more--></p>
 
 <p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
@@ -128,26 +854,26 @@ npm uninstall react-navigation <span class="nt">--save</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">createBottomTabNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="kd">function</span> <span class="nf">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
       <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Home</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="kd">function</span> <span class="nf">SettingsScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
       <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Settings</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nf">createBottomTabNavigator</span><span class="p">();</span>
 
-<span class="kd">function</span> <span class="nx">MyTabs</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="kd">function</span> <span class="nf">MyTabs</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
 </span>      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
@@ -155,16 +881,17 @@ npm uninstall react-navigation <span class="nt">--save</span>
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">MyTabs</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p><strong>实现效果</strong>：底部有一个最基础的的导航栏，没有图标，顶上默认会有一个header，和<code class="language-plaintext highlighter-rouge">Tab.Screen</code>的<code class="language-plaintext highlighter-rouge">name</code>相一致。
-<img src="../assets/my_pics/tab_nav.png" alt="tab_nav" /></p>
+<p><strong>实现效果</strong>：底部有一个最基础的的导航栏，没有图标，顶上默认会有一个header，和<code class="language-plaintext highlighter-rouge">Tab.Screen</code>的<code class="language-plaintext highlighter-rouge">name</code>相一致。</p>
+
+<p><img src="/assets/my_pics/tab_nav.png" alt="tab_nav" /></p>
 
 <h3 id="进阶1添加图标">进阶1:添加图标</h3>
 <p>官方文档中的示例：</p>
@@ -174,32 +901,32 @@ npm uninstall react-navigation <span class="nt">--save</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">createBottomTabNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="kd">function</span> <span class="nf">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
       <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Home</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="kd">function</span> <span class="nf">SettingsScreen</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
       <span class="o">&lt;</span><span class="nx">Text</span><span class="o">&gt;</span><span class="nx">Settings</span><span class="o">!&lt;</span><span class="sr">/Text</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nf">createBottomTabNavigator</span><span class="p">();</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span>
         <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{({</span> <span class="nx">route</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">({</span>
           <span class="na">tabBarIcon</span><span class="p">:</span> <span class="p">({</span> <span class="nx">focused</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">size</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">Home</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="p">(</span>
+            <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">Home</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return </span><span class="p">(</span>
                 <span class="o">&lt;</span><span class="nx">Ionicons</span>
                   <span class="nx">name</span><span class="o">=</span><span class="p">{</span>
                     <span class="nx">focused</span>
@@ -210,8 +937,8 @@ npm uninstall react-navigation <span class="nt">--save</span>
                   <span class="nx">color</span><span class="o">=</span><span class="p">{</span><span class="nx">color</span><span class="p">}</span>
                 <span class="sr">/</span><span class="err">&gt;
 </span>              <span class="p">);</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="p">(</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return </span><span class="p">(</span>
                 <span class="o">&lt;</span><span class="nx">Ionicons</span>
                   <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">ios-list-box</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">ios-list</span><span class="dl">'</span><span class="p">}</span>
                   <span class="nx">size</span><span class="o">=</span><span class="p">{</span><span class="nx">size</span><span class="p">}</span>
@@ -235,8 +962,9 @@ npm uninstall react-navigation <span class="nt">--save</span>
 </span>  <span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
-<p>如果想要使用icon的话，需要在<code class="language-plaintext highlighter-rouge">Tab.Navigator</code>的<code class="language-plaintext highlighter-rouge">screenOption</code>中设置<code class="language-plaintext highlighter-rouge">tabBarIcon</code>的渲染效果，根据页面<code class="language-plaintext highlighter-rouge">name</code>和是否为选中页面<code class="language-plaintext highlighter-rouge">focused</code>设置不同的图标（<code class="language-plaintext highlighter-rouge">&lt;Ionicons ... /&gt;</code>)，还可以根据<code class="language-plaintext highlighter-rouge">tabBarInactiveTintColor</code>和<code class="language-plaintext highlighter-rouge">tabBarActiveTintColor</code>设置图标颜色，在<code class="language-plaintext highlighter-rouge">Tab.Screen</code>中设置<code class="language-plaintext highlighter-rouge">tabBarBadge</code>可以在图标上添加一个小红点，并指示数字，渲染效果如下：
-<img src="../assets/my_pics/tab_nav_with_icon.png" alt="tab_nav_with_icon" /></p>
+<p>如果想要使用icon的话，需要在<code class="language-plaintext highlighter-rouge">Tab.Navigator</code>的<code class="language-plaintext highlighter-rouge">screenOption</code>中设置<code class="language-plaintext highlighter-rouge">tabBarIcon</code>的渲染效果，根据页面<code class="language-plaintext highlighter-rouge">name</code>和是否为选中页面<code class="language-plaintext highlighter-rouge">focused</code>设置不同的图标（<code class="language-plaintext highlighter-rouge">&lt;Ionicons ... /&gt;</code>)，还可以根据<code class="language-plaintext highlighter-rouge">tabBarInactiveTintColor</code>和<code class="language-plaintext highlighter-rouge">tabBarActiveTintColor</code>设置图标颜色，在<code class="language-plaintext highlighter-rouge">Tab.Screen</code>中设置<code class="language-plaintext highlighter-rouge">tabBarBadge</code>可以在图标上添加一个小红点，并指示数字，渲染效果如下：</p>
+
+<p><img src="/assets/my_pics/tab_nav_with_icon.png" alt="tab_nav_with_icon" /></p>
 
 <p>在官方示例中，对于每一个图标都要写一次<code class="language-plaintext highlighter-rouge">&lt;Ionicons ... /&gt;</code>，太过于繁琐；并且<code class="language-plaintext highlighter-rouge">@expo/vector-icons</code>的图标可能在<code class="language-plaintext highlighter-rouge">react native</code>的原生环境中不能很好地渲染，于是我们可以做出这样的改进：</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
@@ -263,20 +991,20 @@ npm uninstall react-navigation <span class="nt">--save</span>
         <span class="na">tabBarIcon</span><span class="p">:</span> <span class="p">({</span><span class="nx">focused</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">size</span><span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
           <span class="kd">let</span> <span class="nx">iconName</span><span class="p">;</span>
 
-          <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">首页</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">首页</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">home</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">home</span><span class="dl">'</span><span class="p">;</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">附近拼团</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">附近拼团</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">appstore-o</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">appstore-o</span><span class="dl">'</span><span class="p">;</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">订单</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">订单</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">redenvelopes</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">redenvelopes</span><span class="dl">'</span><span class="p">;</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">个人</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">个人</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">;</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">一键开团</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">route</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">一键开团</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">iconName</span> <span class="o">=</span> <span class="nx">focused</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">rocket1</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">rocket1</span><span class="dl">'</span><span class="p">;</span>
           <span class="p">}</span>
 
           <span class="c1">// You can return any component that you like here!</span>
-          <span class="k">return</span> <span class="p">(</span>
+          <span class="k">return </span><span class="p">(</span>
             <span class="o">&lt;</span><span class="nx">Icon</span> <span class="k">as</span><span class="o">=</span><span class="p">{</span><span class="nx">AntDesign</span><span class="p">}</span> <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="nx">iconName</span><span class="p">}</span> <span class="nx">size</span><span class="o">=</span><span class="p">{</span><span class="nx">size</span><span class="p">}</span> <span class="nx">color</span><span class="o">=</span><span class="p">{</span><span class="nx">color</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
 </span>          <span class="p">);</span>
         <span class="p">},</span>
@@ -305,8 +1033,9 @@ npm uninstall react-navigation <span class="nt">--save</span>
       <span class="sr">/</span><span class="err">&gt;
 </span>    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
 </span></code></pre></div></div>
-<p>在这里，我们使用了<code class="language-plaintext highlighter-rouge">iconName</code>记录了应渲染图标的名字，最后只需要<code class="language-plaintext highlighter-rouge">return &lt;Icon as={AntDesign} name={iconName} size={size} color={color} /&gt; </code> 一次即可，这里我们使用的图标是<code class="language-plaintext highlighter-rouge">AntDesign</code> + <code class="language-plaintext highlighter-rouge">native-base</code>里面的icon,经试验能够在<code class="language-plaintext highlighter-rouge">react-native</code>的环境中有比较好的渲染效果，最后效果如下：
-<img src="../assets/my_pics/my_tab.png" alt="my_tab" /></p>
+<p>在这里，我们使用了<code class="language-plaintext highlighter-rouge">iconName</code>记录了应渲染图标的名字，最后只需要<code class="language-plaintext highlighter-rouge">return &lt;Icon as={AntDesign} name={iconName} size={size} color={color} /&gt; </code> 一次即可，这里我们使用的图标是<code class="language-plaintext highlighter-rouge">AntDesign</code> + <code class="language-plaintext highlighter-rouge">native-base</code>里面的icon,经试验能够在<code class="language-plaintext highlighter-rouge">react-native</code>的环境中有比较好的渲染效果，最后效果如下：</p>
+
+<p><img src="/assets/my_pics/my_tab.png" alt="my_tab" /></p>
 
 <h3 id="进阶2不显示header">进阶2：不显示header</h3>
 <p>在以上的几种实现中，都会携带默认的header，在<code class="language-plaintext highlighter-rouge">Tab.Navigator</code>的<code class="language-plaintext highlighter-rouge">screenOption</code>中设置<code class="language-plaintext highlighter-rouge">headerStyle</code>、<code class="language-plaintext highlighter-rouge">headerTitleStyle</code>等属性还可以改变header的背景颜色、字体风格等等，但是如果我们不想显示header的话，就需要在<code class="language-plaintext highlighter-rouge">Tab.Screen</code>的<code class="language-plaintext highlighter-rouge">options</code>中将<code class="language-plaintext highlighter-rouge">headerShown</code>设为<code class="language-plaintext highlighter-rouge">false</code>。</p>
@@ -317,247 +1046,6 @@ npm uninstall react-navigation <span class="nt">--save</span>
         <span class="nx">options</span><span class="o">=</span> <span class="p">{{</span><span class="na">headerShown</span><span class="p">:</span> <span class="kc">false</span><span class="p">}}</span>
       <span class="sr">/</span><span class="err">&gt;
 </span></code></pre></div></div>
-<p>在这个时候我们就看不到header了，效果如下：
-<img src="../assets/my_pics/witho.png" alt="without_header" /></p>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。]]></summary></entry><entry><title type="html">react-navigation 6.x 使用指南 (2)</title><link href="http://localhost:4000/2022-09-18/react-navigation_2" rel="alternate" type="text/html" title="react-navigation 6.x 使用指南 (2)" /><published>2022-09-18T00:00:00+08:00</published><updated>2022-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2022-09-18/react-navigation_2</id><content type="html" xml:base="http://localhost:4000/2022-09-18/react-navigation_2"><![CDATA[<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part2）。
-<!--more--></p>
+<p>在这个时候我们就看不到header了，效果如下：</p>
 
-<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
-
-<p>在这篇文章中，我将介绍<code class="language-plaintext highlighter-rouge">Native Stack Navigator</code>的使用以及<code class="language-plaintext highlighter-rouge">Drawer Navigation</code>的使用。</p>
-
-<h2 id="native-stack-navigator">Native Stack Navigator</h2>
-<h3 id="基本用法">基本用法</h3>
-<p>如果不想显示任何导航栏，<code class="language-plaintext highlighter-rouge">stack navigator</code>无疑是个最好的选择，这是最基本的页面导航，它维护了一个栈结构，进入一个页面相当于在栈里压入了一个页面，返回操作相当于在栈中弹出一个页面。在<a href="https://reactnavigation.org/docs/native-stack-navigator/">官方文档</a>给出了基本的用法：</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">createNativeStackNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Button</span>
-        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Profile</span><span class="dl">"</span>
-        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Profile</span><span class="dl">'</span><span class="p">)}</span>
-      <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">ProfileScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Button</span>
-        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Notifications</span><span class="dl">"</span>
-        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
-      <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Button</span>
-        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to Settings</span><span class="dl">"</span>
-        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Settings</span><span class="dl">'</span><span class="p">)}</span>
-      <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">SettingsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back</span><span class="dl">"</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">Stack</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
-
-<span class="kd">function</span> <span class="nx">MyStack</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">MyStack</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-<p>这里<code class="language-plaintext highlighter-rouge">createNativeStackNavigator</code>创建了一个<code class="language-plaintext highlighter-rouge">stack</code>,在不同的页面之间，点击<code class="language-plaintext highlighter-rouge">Button</code>触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面，如果我们使用的是真机的话，后退手势也可以返回上一级页面。实现的效果如下：
-<img src="../assets/my_pics/stack%2000_00_00-00_00_30.gif" alt="show" /></p>
-
-<p>同样，这里默认还是会显示header的，如果我们不想显示header的话，也可以在<code class="language-plaintext highlighter-rouge">Stack.Navigator</code>里面添加<code class="language-plaintext highlighter-rouge">headerShown: false</code>属性，原则上第一个页面是打开的默认页面，我们也可以使用<code class="language-plaintext highlighter-rouge">initialRouteName</code>指定默认页面，如下所示：</p>
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Navigator</span> 
-    <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span>
-    <span class="nx">screenOptions</span><span class="o">=</span><span class="p">{{</span><span class="na">headerShown</span><span class="p">:</span> <span class="kc">false</span><span class="p">}}</span>
-    <span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Profile</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">ProfileScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">Stack</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Settings</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SettingsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/Stack.Navigator</span><span class="err">&gt;
-</span></code></pre></div></div>
-<h3 id="进阶不同navigator之间的嵌套">进阶：不同navigator之间的嵌套</h3>
-<p>如果我们希望做一个购物网站，浏览页底部显示tab导航栏，详情页面等一些页面不显示底部的tab导航栏，那我们可以将tab导航栏包裹后作为一个<code class="language-plaintext highlighter-rouge">stack.screen</code>，而其他不需要显示底部tab导航栏的也作为同级的<code class="language-plaintext highlighter-rouge">stack.screen</code>，示例如下：</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span><span class="nx">createBottomTabNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/bottom-tabs</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">NavigationContainer</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">createNativeStackNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native-stack</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">Tab</span> <span class="o">=</span> <span class="nx">createBottomTabNavigator</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">Route</span> <span class="o">=</span> <span class="nx">createNativeStackNavigator</span><span class="p">();</span>
-
-<span class="k">export</span> <span class="kd">function</span> <span class="nx">TabWrapper</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Navigator</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Tab</span><span class="p">.</span><span class="nx">Screen</span>
-        <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">首页</span><span class="dl">"</span>
-        <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreenWrapper</span><span class="p">}</span>
-        <span class="nx">options</span><span class="o">=</span>
-      <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="p">.....</span>
-    <span class="o">&lt;</span><span class="sr">/Tab.Navigator</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">NativeBaseProvider</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Navigator</span>
-          <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Welcome</span><span class="dl">"</span>
-          <span class="nx">screenOptions</span><span class="o">=&gt;</span>
-          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Detail</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">DetailScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>          <span class="p">......</span>
-          <span class="o">&lt;</span><span class="nx">Route</span><span class="p">.</span><span class="nx">Screen</span>
-            <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">TabWrapper</span><span class="dl">"</span>
-            <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">TabWrapper</span><span class="p">}</span>
-            <span class="nx">options</span><span class="o">=</span>
-          <span class="sr">/</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="sr">/Route.Navigator</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/NativeBaseProvider</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="drawer-navigation">Drawer Navigation</h2>
-<h3 id="基本用法-1">基本用法</h3>
-<p><code class="language-plaintext highlighter-rouge">Drawer Navigation</code>实现了一个左侧的可收起导航栏，基本使用方法可见<a href="https://reactnavigation.org/docs/drawer-based-navigation">官方文档</a></p>
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">createDrawerNavigator</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">NavigationContainer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/native</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">function</span> <span class="nx">HomeScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Button</span>
-        <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="dl">'</span><span class="s1">Notifications</span><span class="dl">'</span><span class="p">)}</span>
-        <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go to notifications</span><span class="dl">"</span>
-      <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">NotificationsScreen</span><span class="p">({</span> <span class="nx">navigation</span> <span class="p">})</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">navigation</span><span class="p">.</span><span class="nx">goBack</span><span class="p">()}</span> <span class="nx">title</span><span class="o">=</span><span class="dl">"</span><span class="s2">Go back home</span><span class="dl">"</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nx">createDrawerNavigator</span><span class="p">();</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">NavigationContainer</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span> <span class="nx">useLegacyImplementation</span> <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Home</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">HomeScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Notifications</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">NotificationsScreen</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/NavigationContainer</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-<p>在<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>中也可以用触发<code class="language-plaintext highlighter-rouge">navigation.navigate</code>导航到特定名字的页面，或者触发<code class="language-plaintext highlighter-rouge">navigation.goBack</code>返回上一级页面,或者使用真机回退手势实现页面的回退；和<code class="language-plaintext highlighter-rouge">Tab Navigator</code>一样，同样也可以将<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>嵌套到<code class="language-plaintext highlighter-rouge">Stack Navigator</code>。样例的效果如下：
-<img src="../assets/my_pics/drawer%2000_00_00-00_00_30.gif" alt="show" /></p>
-
-<h3 id="进阶参数传递">进阶：参数传递</h3>
-<p>假如我们希望使用<code class="language-plaintext highlighter-rouge">Drawer Navigator</code>实现一个分类页面，渲染效果基本相同，但是传递的参数不同导致内容不同，为了不简单地将渲染效果的代码简单复制粘贴多遍，造成大量代码冗余，我们可以使用一个<code class="language-plaintext highlighter-rouge">SwitchScreen{i}</code>作为中间桥梁，不同的<code class="language-plaintext highlighter-rouge">SwitchScreen</code>向最终渲染效果的<code class="language-plaintext highlighter-rouge">RenderScreen</code>传递不同的参数，代码如下：</p>
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span><span class="nx">useState</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">ActivityIndicator</span><span class="p">,</span> <span class="nx">Button</span><span class="p">,</span> <span class="nx">View</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-native</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">createDrawerNavigator</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@react-navigation/drawer</span><span class="dl">'</span><span class="p">;</span>
-
-
-<span class="kd">const</span> <span class="nx">RenderScreen</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">RenderScreen props:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">props</span><span class="p">);</span>
-
-    <span class="nx">React</span><span class="p">.</span><span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="p">....</span>
-        <span class="p">}</span>
-    <span class="p">},</span> <span class="p">[]);</span>
-
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="p">.....</span>
-    <span class="p">);</span>
-<span class="p">};</span>
-
-<span class="c1">// SwtichScreen 用于不同类别页面的渲染，起到桥梁作用</span>
-<span class="kd">function</span> <span class="nx">SwitchScreen1</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">SwitchScreen2</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别1</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">SwitchScreen3</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别2</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">SwitchScreen4</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别3</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">SwitchScreen5</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别4</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">SwitchScreen6</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">RenderScreen</span> <span class="nx">props</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别5</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">Drawer</span> <span class="o">=</span> <span class="nx">createDrawerNavigator</span><span class="p">();</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">BrowseScreen</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Navigator</span>
-      <span class="nx">useLegacyImplementation</span>
-      <span class="nx">initialRouteName</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span>
-      <span class="nx">drawerBackgroundColor</span><span class="o">=</span><span class="dl">"</span><span class="s2">#fda4af</span><span class="dl">"</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">默认</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen1</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别1</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen2</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别2</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen3</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别3</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen4</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别4</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen5</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">Drawer</span><span class="p">.</span><span class="nx">Screen</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">类别5</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">SwitchScreen6</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/Drawer.Navigator</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-</code></pre></div></div>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part2）。]]></summary></entry></feed>
+<p><img src="/assets/my_pics/witho.png" alt="without_header" /></p>]]></content><author><name>Haoru</name></author><category term="React-Native" /><summary type="html"><![CDATA[react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。]]></summary></entry></feed>

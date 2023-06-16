@@ -9,7 +9,6 @@ excerpt_separator: <!--more-->
 # sticky: true
 # hidden: true
 ---
-react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part3）。
 <!--more-->
 
 目前react-navigation的官方文档已经更新到了`6.x`版本，在[官方文档](https://reactnavigation.org/docs/getting-started/)中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。

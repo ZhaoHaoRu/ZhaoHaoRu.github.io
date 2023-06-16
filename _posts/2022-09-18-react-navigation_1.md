@@ -71,7 +71,8 @@ export default function App() {
 }
 ```
 **实现效果**：底部有一个最基础的的导航栏，没有图标，顶上默认会有一个header，和`Tab.Screen`的`name`相一致。
-![tab_nav](../assets/my_pics/tab_nav.png)
+
+![tab_nav](/assets/my_pics/tab_nav.png)
 
 ### 进阶1:添加图标
 官方文档中的示例：
@@ -144,7 +145,8 @@ export default function App() {
 }
 ```
 如果想要使用icon的话，需要在`Tab.Navigator`的`screenOption`中设置`tabBarIcon`的渲染效果，根据页面`name`和是否为选中页面`focused`设置不同的图标（`<Ionicons ... />`)，还可以根据`tabBarInactiveTintColor`和`tabBarActiveTintColor`设置图标颜色，在`Tab.Screen`中设置`tabBarBadge`可以在图标上添加一个小红点，并指示数字，渲染效果如下：
-![tab_nav_with_icon](../assets/my_pics/tab_nav_with_icon.png)
+
+![tab_nav_with_icon](/assets/my_pics/tab_nav_with_icon.png)
 
 在官方示例中，对于每一个图标都要写一次`<Ionicons ... />`，太过于繁琐；并且`@expo/vector-icons`的图标可能在`react native`的原生环境中不能很好地渲染，于是我们可以做出这样的改进：
 ```js
@@ -215,7 +217,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
     </Tab.Navigator>
 ```
 在这里，我们使用了`iconName`记录了应渲染图标的名字，最后只需要`return <Icon as={AntDesign} name={iconName} size={size} color={color} /> ` 一次即可，这里我们使用的图标是`AntDesign` + `native-base`里面的icon,经试验能够在`react-native`的环境中有比较好的渲染效果，最后效果如下：
-![my_tab](../assets/my_pics/my_tab.png)
+
+![my_tab](/assets/my_pics/my_tab.png)
 
 ### 进阶2：不显示header
 在以上的几种实现中，都会携带默认的header，在`Tab.Navigator`的`screenOption`中设置`headerStyle`、`headerTitleStyle`等属性还可以改变header的背景颜色、字体风格等等，但是如果我们不想显示header的话，就需要在`Tab.Screen`的`options`中将`headerShown`设为`false`。
@@ -228,6 +231,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
       />
 ```
 在这个时候我们就看不到header了，效果如下：
-![without_header](../assets/my_pics/witho.png)
 
+![without_header](/assets/my_pics/witho.png)
 

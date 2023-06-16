@@ -1,9 +1,0 @@
-I"�<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍(part 3)。
-<!--more--></p>
-
-<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
-
-<p>在这篇文章中，我将介绍不同页面之间参数的传递和 <code class="language-plaintext highlighter-rouge">Link</code>的使用。</p>
-
-<h2 id="页面导航与参数传递">页面导航与参数传递</h2>
-:ET

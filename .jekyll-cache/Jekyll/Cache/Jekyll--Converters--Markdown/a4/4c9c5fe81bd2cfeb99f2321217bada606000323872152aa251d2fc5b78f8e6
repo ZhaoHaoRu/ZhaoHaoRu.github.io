@@ -1,9 +1,0 @@
-I"l<p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍。
-<!--more--></p>
-
-<p>目前react-navigation的官方文档已经更新到了<code class="language-plaintext highlighter-rouge">6.x</code>版本，在<a href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
-
-<p>在这篇文章中，我将介绍<code class="language-plaintext highlighter-rouge">Native Stack Navigator</code>的使用yi</p>
-
-<p>###</p>
-:ET

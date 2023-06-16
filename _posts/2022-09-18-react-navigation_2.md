@@ -91,7 +91,8 @@ export default function App() {
 }
 ```
 这里`createNativeStackNavigator`创建了一个`stack`,在不同的页面之间，点击`Button`触发`navigation.navigate`导航到特定名字的页面，或者触发`navigation.goBack`返回上一级页面，如果我们使用的是真机的话，后退手势也可以返回上一级页面。实现的效果如下：
-<img src="../assets/my_pics/stack%2000_00_00-00_00_30.gif" alt="show" />
+
+<img src="/assets/my_pics/stack%2000_00_00-00_00_30.gif" alt="show" />
 
 同样，这里默认还是会显示header的，如果我们不想显示header的话，也可以在`Stack.Navigator`里面添加`headerShown: false`属性，原则上第一个页面是打开的默认页面，我们也可以使用`initialRouteName`指定默认页面，如下所示：
 ```js
@@ -192,7 +193,8 @@ export default function App() {
 }
 ```
 在`Drawer Navigator`中也可以用触发`navigation.navigate`导航到特定名字的页面，或者触发`navigation.goBack`返回上一级页面,或者使用真机回退手势实现页面的回退；和`Tab Navigator`一样，同样也可以将`Drawer Navigator`嵌套到`Stack Navigator`。样例的效果如下：
-<img src="../assets/my_pics/drawer%2000_00_00-00_00_30.gif" alt="show" />
+
+<img src="/assets/my_pics/drawer%2000_00_00-00_00_30.gif" alt="show" />
 
 
 ### 进阶：参数传递

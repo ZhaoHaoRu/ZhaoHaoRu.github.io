@@ -1,26 +1,44 @@
 ---
 layout: default
 ---
+{% unless site.dash.show_author == false %}
+  {% include author.html %}
+{% endunless %}
+{{ content }}
+{% assign posts_count = paginator.posts | size %}
+{% if posts_count > 0 %}
+<h1>recent articles</h1>
+    <div class="post-links">
+      {% for post in paginator.posts %}
+        <div class="post-link-wrapper">
+          <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
+          <div class="post-meta">
 
-<div class="catalogue">
-  {% for post in site.posts %}
-    {% if post.sticky %}
-      {% include catalogue_item.html sticky='true' %}
-    {% endif %}
-  {% endfor %}
+            {% if site.plugins contains "jekyll/tagging" %}
+            <div class="post-tags">
+                {% for tag in post.tags %}
+                <a class="tag" href="{{ tag | tag_url }}">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if site.dash.date_format %}
+              {{ post.date | date: site.dash.date_format }}
+            {% else %}
+              {{ post.date | date: "%b %-d, %Y" }}
+            {% endif %}
+            {% if site.show_excerpts == true %}
+              <div class="post-excerpt">
+                {{ post.content | strip_html | truncatewords: 50 }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
 
-  {% for post in paginator.posts %}
-    {% include catalogue_item.html %}
-  {% endfor %}
-</div>
+    {% include pagination.html %}
 
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="left arrow">&#8592;</a>
-  {% endif %}
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="right arrow">&#8594;</a>
-  {% endif %}
-
-  <span>{{ paginator.page }}</span>
-</div>
+    {% include tagcloud.html %}
+{% else %}
+<h2>no posts yet.</h2>
+{% endif %}

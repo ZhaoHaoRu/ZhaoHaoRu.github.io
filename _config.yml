@@ -1,47 +1,55 @@
-# Site settings
-title:          haoru's Blog
-description:    "haoru's blog, something from my daily random thoughts"
-# baseurl:        "/tale"
-# url:            "https://chesterhow.github.io"
-url:            "https://ZhaoHaoRu.github.io"
+title: haoru's blog
+author: haoru
+email: zhaohaoru@sjtu.edu.cn
+description: 
+  "From SJTU, SE<br>Use blog to record my learning progress and random thoughts.<br>Word is cheap, show me your code."
+show_excerpts: false # set to true to show excerpts on the homepage
 
-# Google Analytics
-google_analytics: UA—XXXXXXXX-X
+paginate: 6
+paginate_path: "/blog/page:num/"
 
-# Author
-author:
-  name:         Zhao Haoru
-  # url:          https://chester.how
-  # email:        chesterhow@gmail.com
-  email:        zhaohaoru@sjtu.edu.cn
+tag_permalink_style: pretty
+tag_page_layout: tag_page
+tag_page_dir: tag
 
+# jekyll-dash date format
+# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+dash:
+  # the way how dates should be displayed
+  date_format: "%b %-d, %Y"
+
+  # (optional) discqus comment configuration
+  disqus:
+    shortname: bitbrain-github-io
+
+  # generate social links in footer
+  # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
+  social_links:
+    - url: https://github.com/ZhaoHaoRu
+      icon: github-square
+      color: purple
+
+  # wether the author box should be displayed
+  show_author: true
+
+  # the animation speed of the scroll-in effect
+  animation_speed: 50
+
+  # wether to enable Right-to-Left support or not
+  rtl: false
+
+  # Replaces the default avatar provider (gravatar)
+  #avatar_source: github
+  github_username: ZhaoHaoRu
+  avatar_source: local
+  avatar_path: /assets/avatar.png
 
 # Build settings
-markdown:       kramdown
-include:
-  - _pages
+theme: jekyll-dash
 
-# Assets
-sass:
-  sass_dir:     _sass
-  style:        compressed
-
-# Gems
 plugins:
-  - jekyll-feed
-  - jekyll-paginate
-  - jekyll-seo-tag
-  # - jemoji #Uncomment this to allow emoji in your post
-
-# Permalinks
-permalink:      /:year-:month-:day/:title
-paginate:       5
-
-# Excludes
-exclude: [ Gemfile, Gemfile.lock, tale.gemspec ]
-
-# Disqus (Set to your disqus id)
-disqus:         jekyll-tale
-
-# Enable compile
-future: true
+ - jekyll-feed
+ - jekyll-seo-tag
+ - jekyll-paginate
+ - liquid-md5
+ - jekyll/tagging

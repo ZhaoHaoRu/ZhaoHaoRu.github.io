@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="{% if site.dash.rtl %}direction--rtl{% else %}direction--ltr{% endif %}"lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-  {% include head.html %}
+  {%- include head.html -%}
 
   <body>
 
-    {% include navigation.html %}
+    {%- include header.html -%}
 
-    <main>
-      {{ content }}
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
     </main>
 
-    {% include footer.html %}
+    {%- include footer.html -%}
+    <script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
   </body>
+
 </html>
