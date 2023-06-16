@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>git常用命令 | haoru’s blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="git常用命令" />
+<meta name="author" content="Haoru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="From SJTU, SEUse blog to record my learning progress and random thoughts.Word is cheap, show me your code." />
+<meta property="og:description" content="From SJTU, SEUse blog to record my learning progress and random thoughts.Word is cheap, show me your code." />
+<link rel="canonical" href="http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html" />
+<meta property="og:url" content="http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html" />
+<meta property="og:site_name" content="haoru’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-05-18T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="git常用命令" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Haoru"},"dateModified":"2023-05-18T00:00:00+08:00","datePublished":"2023-05-18T00:00:00+08:00","description":"From SJTU, SEUse blog to record my learning progress and random thoughts.Word is cheap, show me your code.","headline":"git常用命令","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html"},"url":"http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="haoru&apos;s blog" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">haoru&#39;s blog<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+        
+        <a class="color-purple-hover" href="https://github.com/ZhaoHaoRu"><i class="fab fa-github-square"></i></a>
+        
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    /assets/avatar.png
+" class="author-avatar" alt="Avatar" />
+<div class="description">From SJTU, SE<br>Use blog to record my learning progress and random thoughts.<br>Word is cheap, show me your code.</div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">git常用命令</h1>
+  
+  <div class="post-tags">
+      
+      <a class="tag" href="/tag/git/">Git</a>
+      
+      <a class="tag" href="/tag/commands/">Commands</a>
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 18 May 2023
+    
+    by Haoru
+    
+  </div>
+  
+  <!--more-->
+
+<p>我常用的git命令，记录一下：</p>
+
+<h4 id="1-放弃本地的修改强制远程覆盖本地">1. 放弃本地的修改强制远程覆盖本地</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git fetch <span class="nt">--all</span>
+  git reset <span class="nt">--hard</span> origin/master
+</code></pre></div></div>
+
+<h4 id="2-获取远程分支前记得要更新">2. 获取远程分支前记得要更新</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git fetch
+</code></pre></div></div>
+
+<h4 id="3-将本地分支提交到远程非主分支上">3. 将本地分支提交到远程非主分支上</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin &lt;远程分支名&gt;:&lt;本地分支名&gt; // 将远程指定分支 拉取到 本地指定分支上
+......
+git pull origin &lt;远程分支名&gt; // 将远程指定分支 拉取到 本地当前分支上
+......
+git push origin &lt;本地分支名&gt;:&lt;远程分支名&gt; // 将本地当前分支 推送到 远程指定分支上
+git push origin &lt;本地分支名&gt; // 将本地当前分支 推送到 与本地当前分支同名的远程分支上
+git push // 将本地当前分支 推送到 与本地当前分支同名的远程分支上
+git push <span class="nt">-u</span> origin &lt;本地分支名&gt; // 将本地分支与远程同名分支相关联
+</code></pre></div></div>
+
+<h4 id="4-github文件夹有白色箭头并且不能打开的解决办法">4. github文件夹有白色箭头并且不能打开的解决办法</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1、删除文件夹里面的.git文件夹
+
+2、执行git <span class="nb">rm</span> <span class="nt">--cached</span> <span class="o">[</span>文件夹名]
+
+3、执行git add <span class="o">[</span>文件夹名]
+
+4、执行git commit <span class="nt">-m</span> <span class="s2">"msg"</span>
+
+5、执行git push origin <span class="o">[</span>branch_name] 
+</code></pre></div></div>
+
+<h4 id="5-强制push到远程">5. 强制push到远程</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-u</span> origin master <span class="nt">-f</span>
+</code></pre></div></div>
+
+<h4 id="6-快速关联修改git远程仓库地址">6. 快速关联/修改Git远程仓库地址</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nt">-v</span> //查看git对应的远程仓库地址
+git remote <span class="nb">rm </span>origin //删除关联对应的远程仓库地址
+git remote <span class="nt">-v</span> //查看是否删除成功，如果没有任何返回结果，表示OK
+git remote add origin https://github.com/developers-youcong/Metronic_Template.git //重新关联git远程仓库地址
+</code></pre></div></div>
+
+<h4 id="7-如何将本地git仓库推送到远程">7. 如何将本地git仓库推送到远程</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>首先在github上面创建新仓库（注意不要添加任何文件）
+修改关联远程仓库将关联远程仓库改为新仓库的ssh地址
+</code></pre></div></div>
+
+<h4 id="8-如何更换本地git对应的远程并更换分支">8. 如何更换本地git对应的远程并更换分支</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>....
+git push <span class="nt">--set-upstream</span> origin master
+</code></pre></div></div>
+
+<ul>
+  <li>法2</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 先修改对应的远程git库地址
+// 在idea的图形化Git界面，对本地分支进行推送
+</code></pre></div></div>
+
+<h4 id="9-git删除分支">9. git删除分支</h4>
+
+<ul>
+  <li>git 删除本地分支</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch <span class="nt">-d</span> &lt;BranchName&gt;
+</code></pre></div></div>
+<ul>
+  <li>
+    <p>git 删除远程分支</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 查看远程分支
+git branch <span class="nt">-a</span>
+// 假如显示远程分支的名字是<span class="sb">`</span>origin/test<span class="sb">`</span>
+git push origin <span class="nt">-d</span> <span class="nb">test</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="10-取消当前的merge操作">10. 取消当前的merge操作</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git merge <span class="nt">--abort</span>
+</code></pre></div></div>
+
+<h4 id="11-丢弃掉目前所有修改没有add过">11. 丢弃掉目前所有修改（没有add过）</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git clean <span class="nt">-fdx</span>
+</code></pre></div></div>
+
+<h4 id="12-在gitignore的时候忽略已经跟踪过的文件">12. 在gitignore的时候忽略已经跟踪过的文件</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git <span class="nb">rm</span> <span class="nt">--cached</span> &lt;file_path&gt;
+</code></pre></div></div>
+
+<h4 id="13-解决问题the-following-untracked-working-tree-files-would-be-overwritten-by-merge">13. 解决问题：The following untracked working tree files would be overwritten by merge</h4>
+
+<p>这个错误通常发生在尝试从远程仓库拉取代码时，但本地工作区存在未跟踪的文件，而这些文件与即将拉取的代码发生了冲突。为了解决这个问题，可以尝试以下几种方</p>
+
+<ol>
+  <li>
+    <p>提交或保存本地的修改：如果对工作区的修改是有意义的，可以先提交或保存这些修改。可以使用以下命令将修改的文件添加到暂存区并提交：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add .
+git commit -m "保存本地修改"
+</code></pre></div>    </div>
+
+    <p>或者使用适当的命令（如 <code class="language-plaintext highlighter-rouge">git stash</code>）将修改的文件暂存起来，以便稍后再应用这些修改。</p>
+  </li>
+  <li>
+    <p>放弃本地的修改：如果对工作区的修改并不重要，可以放弃这些修改，并清理工作区。使用以下命令将工作区恢复为与远程仓库一致的状态：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard HEAD
+git clean -df
+</code></pre></div>    </div>
+
+    <p>第一条命令会将工作区和暂存区的修改恢复为最近的提交状态，第二条命令会删除未被跟踪的文件和目录。</p>
+  </li>
+  <li>
+    <p>手动合并冲突：如果想保留本地的修改并尝试手动解决冲突，可以使用以下命令拉取代码并进行合并：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch
+git merge origin/develop
+</code></pre></div>    </div>
+
+    <p>这会将远程仓库的 “develop” 分支与本地的当前分支进行合并。然后，可以手动解决冲突，并在解决完冲突后提交修改。</p>
+  </li>
+</ol>
+
+
+</div>
+
+
+<div class="comments">
+<div id="disqus_thread"></div>
+<script>
+ var disqus_config = function () {
+     this.page.url = 'http://localhost:4000/2023/05/18/git%E5%91%BD%E4%BB%A4.html';
+     this.page.identifier = '/2023/05/18/git命令';
+     this.page.title = 'git常用命令';
+ };
+
+ (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+     var d = document, s = d.createElement('script');
+
+     s.src = '//bitbrain-github-io.disqus.com/embed.js';
+
+     s.setAttribute('data-timestamp', +new Date());
+     (d.head || d.body).appendChild(s);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2023/06/15/%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95.html">
+            找工记录
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/06/14/%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93.html">
+            大三总结
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/06/14/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html">
+            Github pages + jekyll 博客搭建
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/blogs/" class="set-1">Blogs</a> <a href="/tag/commands/" class="set-3">Commands</a> <a href="/tag/docker/" class="set-1">Docker</a> <a href="/tag/git/" class="set-1">Git</a> <a href="/tag/react-native/" class="set-5">React-Native</a> <a href="/tag/macbook/" class="set-3">macbook</a> <a href="/tag/%E6%80%BB%E7%BB%93/" class="set-1">总结</a> <a href="/tag/%E6%89%BE%E5%B7%A5%E4%BD%9C/" class="set-1">找工作</a> <a href="/tag/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" class="set-3">碎碎念</a> <a href="/tag/%E9%85%8D%E7%8E%AF%E5%A2%83/" class="set-3">配环境</a></div>
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>
