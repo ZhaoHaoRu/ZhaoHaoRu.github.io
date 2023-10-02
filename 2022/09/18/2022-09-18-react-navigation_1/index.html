@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/tea.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/tea.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-navigation 6.x 使用指南 (1)">
+<meta property="og:url" content="http://example.com/2022/09/18/2022-09-18-react-navigation_1/index.html">
+<meta property="og:site_name" content="Haoru&#39;s blog">
+<meta property="og:description" content="react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/my_pics/tab_nav.png">
+<meta property="og:image" content="http://example.com/assets/my_pics/tab_nav_with_icon.png">
+<meta property="og:image" content="http://example.com/assets/my_pics/my_tab.png">
+<meta property="og:image" content="http://example.com/assets/my_pics/witho.png">
+<meta property="article:published_time" content="2022-09-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-20T03:08:04.657Z">
+<meta property="article:author" content="Haoru Zhao">
+<meta property="article:tag" content="React-Native">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/assets/my_pics/tab_nav.png">
+
+<link rel="canonical" href="http://example.com/2022/09/18/2022-09-18-react-navigation_1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>react-navigation 6.x 使用指南 (1) | Haoru's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Haoru's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ZhaoHaoRu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/18/2022-09-18-react-navigation_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Haoru Zhao">
+      <meta itemprop="description" content="Word is cheap, show me your code.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Haoru's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react-navigation 6.x 使用指南 (1)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-18 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-18T00:00:00+08:00">2022-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-20 11:08:04" itemprop="dateModified" datetime="2023-09-20T11:08:04+08:00">2023-09-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>react-navigation 6.x版本的安装、传参、navigator的使用等介绍（part1）。</p>
+<span id="more"></span>
+
+<p>目前react-navigation的官方文档已经更新到了<code>6.x</code>版本，在<a target="_blank" rel="noopener" href="https://reactnavigation.org/docs/getting-started/">官方文档</a>中对于其基本的使用方法也有所介绍，但是对于一些比较复杂的使用场景，或者传参等细节问题并没有给出详细的解决方案。</p>
+<p>在这篇文章中，我将介绍<code>react-navigation</code>的安装与<code>Tab navigation</code>的使用</p>
+<h2 id="使用npm安装和卸载"><a href="#使用npm安装和卸载" class="headerlink" title="使用npm安装和卸载"></a>使用npm安装和卸载</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm install --save react-navigation </span><br><span class="line">npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view // 安装相关的依赖</span><br><span class="line"></span><br><span class="line">// 在babel.config.js的module.exports中增加这句：</span><br><span class="line">plugins: [&#x27;react-native-reanimated/plugin&#x27;]</span><br><span class="line"></span><br><span class="line">// 卸载</span><br><span class="line">npm uninstall react-navigation --save</span><br></pre></td></tr></table></figure>
+<h2 id="Tab-navigation的使用"><a href="#Tab-navigation的使用" class="headerlink" title="Tab navigation的使用"></a>Tab navigation的使用</h2><h3 id="基础用法：官方文档中的示例"><a href="#基础用法：官方文档中的示例" class="headerlink" title="基础用法：官方文档中的示例"></a>基础用法：官方文档中的示例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Text</span>, <span class="title class_">View</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-native&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavigationContainer</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@react-navigation/native&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createBottomTabNavigator &#125; <span class="keyword">from</span> <span class="string">&#x27;@react-navigation/bottom-tabs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">HomeScreen</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">flex:</span> <span class="attr">1</span>, <span class="attr">justifyContent:</span> &#x27;<span class="attr">center</span>&#x27;, <span class="attr">alignItems:</span> &#x27;<span class="attr">center</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Text</span>&gt;</span>Home!<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SettingsScreen</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">flex:</span> <span class="attr">1</span>, <span class="attr">justifyContent:</span> &#x27;<span class="attr">center</span>&#x27;, <span class="attr">alignItems:</span> &#x27;<span class="attr">center</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Text</span>&gt;</span>Settings!<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Tab</span> = <span class="title function_">createBottomTabNavigator</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyTabs</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Tab.Navigator</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span> <span class="attr">name</span>=<span class="string">&quot;Home&quot;</span> <span class="attr">component</span>=<span class="string">&#123;HomeScreen&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span> <span class="attr">name</span>=<span class="string">&quot;Settings&quot;</span> <span class="attr">component</span>=<span class="string">&#123;SettingsScreen&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Tab.Navigator</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">NavigationContainer</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">MyTabs</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">NavigationContainer</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>实现效果</strong>：底部有一个最基础的的导航栏，没有图标，顶上默认会有一个header，和<code>Tab.Screen</code>的<code>name</code>相一致。</p>
+<p><img src="/assets/my_pics/tab_nav.png" alt="tab_nav"></p>
+<h3 id="进阶1-添加图标"><a href="#进阶1-添加图标" class="headerlink" title="进阶1:添加图标"></a>进阶1:添加图标</h3><p>官方文档中的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Text</span>, <span class="title class_">View</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-native&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Ionicons</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@expo/vector-icons&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavigationContainer</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@react-navigation/native&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createBottomTabNavigator &#125; <span class="keyword">from</span> <span class="string">&#x27;@react-navigation/bottom-tabs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">HomeScreen</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">flex:</span> <span class="attr">1</span>, <span class="attr">justifyContent:</span> &#x27;<span class="attr">center</span>&#x27;, <span class="attr">alignItems:</span> &#x27;<span class="attr">center</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Text</span>&gt;</span>Home!<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SettingsScreen</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">View</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">flex:</span> <span class="attr">1</span>, <span class="attr">justifyContent:</span> &#x27;<span class="attr">center</span>&#x27;, <span class="attr">alignItems:</span> &#x27;<span class="attr">center</span>&#x27; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Text</span>&gt;</span>Settings!<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">View</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Tab</span> = <span class="title function_">createBottomTabNavigator</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">NavigationContainer</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Navigator</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">screenOptions</span>=<span class="string">&#123;(&#123;</span> <span class="attr">route</span> &#125;) =&gt;</span> (&#123;</span></span><br><span class="line"><span class="language-xml">          tabBarIcon: (&#123; focused, color, size &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">            if (route.name === &#x27;Home&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">              return (</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Ionicons</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">name</span>=<span class="string">&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">focused</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                      ? &#x27;<span class="attr">ios-information-circle</span>&#x27;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                      <span class="attr">:</span> &#x27;<span class="attr">ios-information-circle-outline</span>&#x27;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  &#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">size</span>=<span class="string">&#123;size&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">color</span>=<span class="string">&#123;color&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                /&gt;</span></span></span><br><span class="line"><span class="language-xml">              );</span></span><br><span class="line"><span class="language-xml">            &#125; else if (route.name === &#x27;Settings&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">              return (</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Ionicons</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">name</span>=<span class="string">&#123;focused</span> ? &#x27;<span class="attr">ios-list-box</span>&#x27; <span class="attr">:</span> &#x27;<span class="attr">ios-list</span>&#x27;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">size</span>=<span class="string">&#123;size&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                  <span class="attr">color</span>=<span class="string">&#123;color&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                /&gt;</span></span></span><br><span class="line"><span class="language-xml">              );</span></span><br><span class="line"><span class="language-xml">            &#125;</span></span><br><span class="line"><span class="language-xml">          &#125;,</span></span><br><span class="line"><span class="language-xml">          tabBarInactiveTintColor: &#x27;gray&#x27;,</span></span><br><span class="line"><span class="language-xml">          tabBarActiveTintColor: &#x27;tomato&#x27;,</span></span><br><span class="line"><span class="language-xml">        &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">      &gt;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Tab.Screen</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">name</span>=<span class="string">&quot;Home&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">component</span>=<span class="string">&#123;HomeScreen&#125;&#123;%</span> <span class="attr">raw</span> %&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">options</span>= <span class="string">&#123;&#123;</span> <span class="attr">tabBarBadge:</span> <span class="attr">3</span> &#125;&#125;&#123;% <span class="attr">endraw</span> %&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Tab.Screen</span> <span class="attr">name</span>=<span class="string">&quot;Settings&quot;</span> <span class="attr">component</span>=<span class="string">&#123;SettingsScreen&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">Tab.Navigator</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">NavigationContainer</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想要使用icon的话，需要在<code>Tab.Navigator</code>的<code>screenOption</code>中设置<code>tabBarIcon</code>的渲染效果，根据页面<code>name</code>和是否为选中页面<code>focused</code>设置不同的图标（<code>&lt;Ionicons ... /&gt;</code>)，还可以根据<code>tabBarInactiveTintColor</code>和<code>tabBarActiveTintColor</code>设置图标颜色，在<code>Tab.Screen</code>中设置<code>tabBarBadge</code>可以在图标上添加一个小红点，并指示数字，渲染效果如下：</p>
+<p><img src="/assets/my_pics/tab_nav_with_icon.png" alt="tab_nav_with_icon"></p>
+<p>在官方示例中，对于每一个图标都要写一次<code>&lt;Ionicons ... /&gt;</code>，太过于繁琐；并且<code>@expo/vector-icons</code>的图标可能在<code>react native</code>的原生环境中不能很好地渲染，于是我们可以做出这样的改进：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;extendTheme, <span class="title class_">NativeBaseProvider</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;native-base&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HomeScreenWrapper</span> <span class="keyword">from</span> <span class="string">&#x27;./screens/HomeScreen&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Icon</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;native-base&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BrowseScreen</span> <span class="keyword">from</span> <span class="string">&#x27;./screens/BrowseScreen&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MyProfileScreenRoute</span> <span class="keyword">from</span> <span class="string">&#x27;./screens/MyProfileScreen&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">OrderScreen</span> <span class="keyword">from</span> <span class="string">&#x27;./screens/OrderScreen&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CreateGroupScreen</span> <span class="keyword">from</span> <span class="string">&#x27;./screens/CreateGroupScreen&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;createBottomTabNavigator&#125; <span class="keyword">from</span> <span class="string">&#x27;@react-navigation/bottom-tabs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">NavigationContainer</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@react-navigation/native&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AntDesign</span> <span class="keyword">from</span> <span class="string">&#x27;react-native-vector-icons/AntDesign&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Tab.Navigator</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">screenOptions</span>=<span class="string">&#123;(&#123;route&#125;)</span> =&gt;</span> (&#123;</span></span><br><span class="line"><span class="language-xml">        headerStyle: &#123;</span></span><br><span class="line"><span class="language-xml">          backgroundColor: &#x27;#fda4af&#x27;,</span></span><br><span class="line"><span class="language-xml">        &#125;,</span></span><br><span class="line"><span class="language-xml">        headerTintColor: &#x27;#fff&#x27;,</span></span><br><span class="line"><span class="language-xml">        headerTitleStyle: &#123;</span></span><br><span class="line"><span class="language-xml">          fontWeight: &#x27;bold&#x27;,</span></span><br><span class="line"><span class="language-xml">        &#125;,</span></span><br><span class="line"><span class="language-xml">        tabBarIcon: (&#123;focused, color, size&#125;) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">          let iconName;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          if (route.name === &#x27;首页&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">            iconName = focused ? &#x27;home&#x27; : &#x27;home&#x27;;</span></span><br><span class="line"><span class="language-xml">          &#125; else if (route.name === &#x27;附近拼团&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">            iconName = focused ? &#x27;appstore-o&#x27; : &#x27;appstore-o&#x27;;</span></span><br><span class="line"><span class="language-xml">          &#125; else if (route.name === &#x27;订单&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">            iconName = focused ? &#x27;redenvelopes&#x27; : &#x27;redenvelopes&#x27;;</span></span><br><span class="line"><span class="language-xml">          &#125; else if (route.name === &#x27;个人&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">            iconName = focused ? &#x27;user&#x27; : &#x27;user&#x27;;</span></span><br><span class="line"><span class="language-xml">          &#125; else if (route.name === &#x27;一键开团&#x27;) &#123;</span></span><br><span class="line"><span class="language-xml">            iconName = focused ? &#x27;rocket1&#x27; : &#x27;rocket1&#x27;;</span></span><br><span class="line"><span class="language-xml">          &#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          // You can return any component that you like here!</span></span><br><span class="line"><span class="language-xml">          return (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">as</span>=<span class="string">&#123;AntDesign&#125;</span> <span class="attr">name</span>=<span class="string">&#123;iconName&#125;</span> <span class="attr">size</span>=<span class="string">&#123;size&#125;</span> <span class="attr">color</span>=<span class="string">&#123;color&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">          );</span></span><br><span class="line"><span class="language-xml">        &#125;,</span></span><br><span class="line"><span class="language-xml">        tabBarActiveTintColor: &#x27;tomato&#x27;,</span></span><br><span class="line"><span class="language-xml">        tabBarInactiveTintColor: &#x27;gray&#x27;,</span></span><br><span class="line"><span class="language-xml">      &#125;)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;首页&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">component</span>=<span class="string">&#123;HomeScreenWrapper&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;附近拼团&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">component</span>=<span class="string">&#123;BrowseScreen&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;一键开团&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">component</span>=<span class="string">&#123;CreateGroupScreen&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;订单&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">component</span>=<span class="string">&#123;OrderScreen&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Tab.Screen</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;个人&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">component</span>=<span class="string">&#123;MyProfileScreenRoute&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Tab.Navigator</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>在这里，我们使用了<code>iconName</code>记录了应渲染图标的名字，最后只需要<code>return &lt;Icon as=&#123;AntDesign&#125; name=&#123;iconName&#125; size=&#123;size&#125; color=&#123;color&#125; /&gt; </code> 一次即可，这里我们使用的图标是<code>AntDesign</code> + <code>native-base</code>里面的icon,经试验能够在<code>react-native</code>的环境中有比较好的渲染效果，最后效果如下：</p>
+<p><img src="/assets/my_pics/my_tab.png" alt="my_tab"></p>
+<h3 id="进阶2：不显示header"><a href="#进阶2：不显示header" class="headerlink" title="进阶2：不显示header"></a>进阶2：不显示header</h3><p>在以上的几种实现中，都会携带默认的header，在<code>Tab.Navigator</code>的<code>screenOption</code>中设置<code>headerStyle</code>、<code>headerTitleStyle</code>等属性还可以改变header的背景颜色、字体风格等等，但是如果我们不想显示header的话，就需要在<code>Tab.Screen</code>的<code>options</code>中将<code>headerShown</code>设为<code>false</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Tab</span>.<span class="property">Screen</span></span><br><span class="line">    name=<span class="string">&quot;首页&quot;</span></span><br><span class="line">    component=&#123;<span class="title class_">HomeScreenWrapper</span>&#125;&#123;% raw %&#125;</span><br><span class="line">    options= &#123;&#123;<span class="attr">headerShown</span>: <span class="literal">false</span>&#125;&#125;&#123;% endraw %&#125;</span><br><span class="line">  /&gt;</span><br></pre></td></tr></table></figure>
+<p>在这个时候我们就看不到header了，效果如下：</p>
+<p><img src="/assets/my_pics/witho.png" alt="without_header"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/React-Native/" rel="tag"># React-Native</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/18/2022-09-18-react-navigation_2/" rel="next" title="react-navigation 6.x 使用指南 (2)">
+      react-navigation 6.x 使用指南 (2) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8npm%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%B8%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">使用npm安装和卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tab-navigation%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Tab navigation的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95%EF%BC%9A%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">基础用法：官方文档中的示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B61-%E6%B7%BB%E5%8A%A0%E5%9B%BE%E6%A0%87"><span class="nav-number">2.2.</span> <span class="nav-text">进阶1:添加图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B62%EF%BC%9A%E4%B8%8D%E6%98%BE%E7%A4%BAheader"><span class="nav-number">2.3.</span> <span class="nav-text">进阶2：不显示header</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Haoru Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Haoru Zhao</p>
+  <div class="site-description" itemprop="description">Word is cheap, show me your code.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhaoHaoRu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ZhaoHaoRu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/zhaohaoru@sjtu.edu.cn" title="E-Mail → zhaohaoru@sjtu.edu.cn"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Haoru Zhao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
