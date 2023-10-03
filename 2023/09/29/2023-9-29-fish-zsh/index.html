@@ -20,20 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Do not go gentle into that good night.半年以来的尝试与思考，总结一下。">
+  <meta name="description" content="fish好用，谁赞成，谁反对？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大三总结">
-<meta property="og:url" content="http://example.com/2023/06/14/2023-06-15-%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="fish or zsh？ 我爱fish！">
+<meta property="og:url" content="http://example.com/2023/09/29/2023-9-29-fish-zsh/index.html">
 <meta property="og:site_name" content="Haoru&#39;s blog">
-<meta property="og:description" content="Do not go gentle into that good night.半年以来的尝试与思考，总结一下。">
+<meta property="og:description" content="fish好用，谁赞成，谁反对？">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-13T16:00:00.000Z">
+<meta property="article:published_time" content="2023-09-28T16:00:00.000Z">
 <meta property="article:author" content="Haoru Zhao">
 <meta property="article:tag" content="碎碎念">
-<meta property="article:tag" content="总结">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2023/06/14/2023-06-15-%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93/">
+<link rel="canonical" href="http://example.com/2023/09/29/2023-9-29-fish-zsh/">
 
 
 <script id="page-configurations">
@@ -46,7 +45,7 @@
   };
 </script>
 
-  <title>大三总结 | Haoru's blog</title>
+  <title>fish or zsh？ 我爱fish！ | Haoru's blog</title>
   
 
 
@@ -163,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/14/2023-06-15-%E5%A4%A7%E4%B8%89%E6%80%BB%E7%BB%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/29/2023-9-29-fish-zsh/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -176,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          大三总结
+          fish or zsh？ 我爱fish！
         </h1>
 
         <div class="post-meta">
@@ -186,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-06-14 00:00:00" itemprop="dateCreated datePublished" datetime="2023-06-14T00:00:00+08:00">2023-06-14</time>
+              <time title="创建时间：2023-09-29 00:00:00" itemprop="dateCreated datePublished" datetime="2023-09-29T00:00:00+08:00">2023-09-29</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -207,28 +206,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Do not go gentle into that good night.<br>半年以来的尝试与思考，总结一下。</p>
-<span id="more"></span>
-<blockquote>
-<p>我热爱一切不彻底的事物 琥珀里的时间 微暗的火 一生都在半途而废 一生都怀抱热望</p>
+        <blockquote>
+<p>fish好用，谁赞成，谁反对？</p>
 </blockquote>
-<br/>
+<span id="more"></span>
+<p>从大一暑假刚刚开始接触linux开始，我就一直用的是fish, 最近在用服务器的时候，服务器只有zsh没有fish，我也使用了一段时间的zsh，也给自己的电脑配置了一下zsh（mac默认的shell就是zsh，可是我一直没有配置）。两者比较下来，我还是觉得fish是最好用的shell，没有之一。</p>
+<h2 id="fish的优点"><a href="#fish的优点" class="headerlink" title="fish的优点"></a>fish的优点</h2><ol>
+<li><p>开箱即用，使用一条命令即可完成安装，不需要额外的配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fish   # linux</span><br><span class="line">homebrew install fish   # mac</span><br></pre></td></tr></table></figure>
+<p>当然fish也可以使用Oh My Fish自定义主题，但是我感觉自带的主题已经很清晰好看了。</p>
+</li>
+<li><p>智能的自动补全：zsh安装<code>autosuggestions</code>插件之后，也可以实现类似的功能，但是zsh的自动补全更像是根据历史命令来补全，并不关心上下文，而fish的自动补全是基于上下文的，在不同的位置会有不同的补全；而且 fish 还会自动解析 man page，智能补全命令。</p>
+</li>
+<li><p>速度快，相比于配置多种多样插件的zsh来讲，fish的速度更快</p>
+</li>
+</ol>
+<h2 id="fish广为诟病的缺点：不兼容bash！"><a href="#fish广为诟病的缺点：不兼容bash！" class="headerlink" title="fish广为诟病的缺点：不兼容bash！"></a>fish广为诟病的缺点：不兼容bash！</h2><p>这确实是fish相比zsh的非常严重的不足之处，每当遇到比较复杂的bash命令时，需要输入<code>bash</code>先回到bash，再执行bash命令。但是，我觉得这个问题并不是很严重，因为我在使用fish的时候，基本上都是在做一些简单的操作，比如<code>cd</code>，<code>git</code>，<code>scp</code>等，在执行这些命令的时候，智能的自动补全对于我来说是比较重要的；对于比较复杂的操作，通常会写成一个shell脚本，直接使用bash环境执行，</p>
+<h2 id="zsh的配置"><a href="#zsh的配置" class="headerlink" title="zsh的配置"></a>zsh的配置</h2><p>我也使用了一段时间的zsh，在这里简单分享一下我最简版的zsh配置（出于速度考虑，这里全部使用的是gitee上的镜像仓库）：</p>
+<h4 id="Oh-my-zsh安装"><a href="#Oh-my-zsh安装" class="headerlink" title="Oh my zsh安装"></a>Oh my zsh安装</h4><p>   <strong>第一步 → 把 oh-my-zsh 项目 Clone 下来：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://gitee.com/mirrors/oh-my-zsh.git ~/.oh-my-zsh</span><br></pre></td></tr></table></figure>
 
-<p>转眼间时间就来到了六月，大三一年即将结束，这是充满机遇和转折的一年：这一年我做了很多尝试，努力摆脱以往线性的思维方式，探索未来可能的发展方向，同时也遭遇了一些挫折的打击，导致最近一个月都处在一个浑浑噩噩、自暴自弃的状态。谨以此文记录我一年多以来的思考和生活，正好整理心情，重新出发。</p>
-<h2 id="Part1-courses-exams"><a href="#Part1-courses-exams" class="headerlink" title="Part1: courses &amp; exams"></a>Part1: courses &amp; exams</h2><p>在大三刚刚开始的时候，我顺利拿到了第二次国奖，不同于第一次的激动，这次我的心情非常平静。经过大二这一年，我已经对于卷成绩、卷素拓感到十分厌倦，考虑到本专业较离谱的卷度（可能是我太菜），想要拿到第三年的国奖，对于我来说还是要付出比较大的时间精力的（尤其是素拓），并且拿很多年国奖也没啥用，于是我决定在基本稳住成绩的同时多干些其他的事情。</p>
-<p>大三上学期仍旧是疫情时代，2&#x2F;3的时间在上网课，对于我这种阿宅来讲，上网课无疑是极大利好：不用通勤，可以不听直播看回放，时间安排灵活自由。于是这个学期的课基本上都划水划过去了，但是常言道：“常在河边走，怎能不湿鞋”，这个学期美美错过了chp老师的随堂小测，还出现了老师上课点我回答问题叫了好几遍发现我不在的尴尬😇局面。</p>
-<p>到了十二月份的时候放开了疫情管控，学校出现了感染的高峰，看着水源里面的症状描述我有点害怕，于是决定润回家。结果在考试周前的一个周末、也就是元旦那天喜提新冠阳性（后来得知坚守学校的室友一直没阳🥲），考compiler的时候还在发烧。由于一个学期的摆烂 + 考试生病，最后成绩出来不太好（不过也还行），于是痛定思痛决定下个学期好好学习。</p>
-<p>结果到了大三下还是没有好好学习，这学期课少了一些，由于我决定试着找找实习，这个学期的课除了OS以外，其他的课基本上都摸过去了（甚至比上个学期摸得更厉害🤣），考试周因为心情原因更是在摆烂😢。</p>
-<h2 id="Part2-coding"><a href="#Part2-coding" class="headerlink" title="Part2: coding"></a>Part2: coding</h2><p>这一年写的代码大概可以分为几个部分：labs &amp; minik8s，jump的project，ipads的实习project 还有 leetcode。</p>
-<p>大三上学期的compiler和CHFS文件系统，明显感觉要比大二下学期的lab要难上一些：compiler后面的几次迭代都要花上三天甚至更长的时间去完成，通过这个lab额外收获了一些 modern C++ 的训练；CHFS的随机test经常让我debug到人恍惚，raft部分有些难但是收获也很大（我觉得CHFS确实是写过最有意思的课内lab）。大三下学期的chcore压力就小了很多，但是需要写报告👿。</p>
-<p>9月份开始参加和jump合作的项目，写matching engine + rdma优化，基本上在10月份rush完了matching engine + gateway的逻辑，说实话，这个项目是我第一次从头开始搭C++项目的架构，最后写出来有很多冗余的地方，出现了无意义的多次拷贝，后来2月份的时候又重构了一次；11月中旬的时候开始尝试rdma，rdmacm和ibverbs确实非常不好用，翻遍了GitHub，最后找到了一份代码并把它改成了可以支持多个client和多次传送消息的echo版本，但是发现还是很难做到io多路复用（这个版本最后直接用在最后的测试任务上了，还是为我们节省了一些时间），最后决定用<code>socket like</code>的rsocket，事情一下子就变得简单了。</p>
-<p>10月份的时候通过了ipads的面试，11月底的时候开始做项目，和yy还有沈哥一组，我负责写云服务器上的部分，难点主要在foundationDB的SQL支持（同时还要支持索引），一开始图方便用python的第三方库做SQL解析，后来觉得这样对于SQL的支持还是太差，于是决定用java重写整个项目，用calcite做foundationDB sql adaptor，后来又仿照InfluxDB做了时序数据库的优化，本来想要做成类似源码中java api的那种形式，可是最后还是偷懒用了grpc。</p>
-<p>做完ipads的项目后，我和yy还有沈哥一起写了云OS的miniK8s，经过前面三四个月的配合，我们这个项目的合作非常愉快。与此同时，经过前面两个项目的毒打，我感觉k8s写的过程还是比较流畅轻松的。</p>
-<p>这一年中，断断续续刷了不少leetcode，大三上学期出去隔离的时候，不想写lab就在刷leetcode，寒假不想做项目的时候也在刷leetcode，不得不说刷leetcode是一件非常让人容易快速获得成就感的事情。3、4月份的时候在找实习，基本上每天都在坚持刷题，做题量基本上double了。</p>
-<h2 id="Part3-future-thinking"><a href="#Part3-future-thinking" class="headerlink" title="Part3: future &amp; thinking"></a>Part3: future &amp; thinking</h2><p>在大二的时候，我对于未来的期望是留在ipads读个硕士，硕士毕业之后找份大厂的工作。22年的春招让我意识到了互联网寒冬的威力，但是也想着是先读个硕士观望一下。大三刚刚开始的时候，任老师在群里发了jump的项目，wjr和我说这可能是个不错的机会，于是我也去试着报名了，接下来跟着任老师做了将近半年的项目（这个项目实在是拖了太久），想着如果有实习的机会就去试试看。悲催的是2月份项目快要结束的时候，公司那边说缩招，只有一个实习的名额😇，当时我在忙着ipads那边项目的重构，和任老师讲我可能没有什么时间搞jump这个项目了，没想到就被任老师说服去尝试一下optiver了🤣。</p>
-<p>接下来便是漫长的找工之旅，除了optiver以外还顺便投了BAT几家（后来ipads通知不许暑期实习，也就没有接着投），发现最难的竟然是过简历初筛和英语口语。optiver面了一个多月，走完流程还是被waiting list了😥，当时还是挺失落的，毕竟自认为每一场面试都在非常认真的准备，对于这个offer也有很强烈的期望。</p>
-<p>最近一直在复盘找工作的这几个月，不得不说自己的能力真的和dream job的bar之间还有一定的差距，于是决定下面还是安心念书，多写代码多看书。但是总的说来，找工这几个月，确实让我好好复习了基础知识，同时刷了不少leetcode，将来还能用得到，总之不亏。</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>这一年确实非常精彩，发生了很多事情，虽然兜兜转转还是回到了计划的原点，但是尽力了便不会后悔。最大的缺憾是没有好好玩😤，大三下学期明明这么空闲。希望暑假和大四能够多出去走走，过得更加轻松一些。</p>
+<p>   <strong>第二步 → 复制 .zshrc</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>   <strong>第三步 → 更改你的默认 Shell</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+
+<h4 id="自动补全插件"><a href="#自动补全插件" class="headerlink" title="自动补全插件"></a>自动补全插件</h4>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitee.com/xiaoqqya/zsh-autosuggestions.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+
+<p>   编辑<code>~/.zshrc</code></p>
+<p>   Add the plugin to the list of plugins for Oh My Zsh to load (inside <code>~/.zshrc</code>):</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>​		Start a new terminal session.</p>
+<h4 id="语法高亮插件"><a href="#语法高亮插件" class="headerlink" title="语法高亮插件"></a>语法高亮插件</h4>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitee.com/mirror-hub/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+
+<p>   和上面的步骤一样</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins=( [plugins...] zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+
+<h4 id="字体主题："><a href="#字体主题：" class="headerlink" title="字体主题："></a>字体主题：</h4><p>   如果你和我一样不知道使用什么主题的话，可以先用一段时间的<code>random</code>，每次打开终端都会随机选择一个主题，直到你找到一个你喜欢的主题为止。</p>
+<p>   也可以参考一下这个<a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes">主题列表</a></p>
+<p>   现在我使用的是这个主题：<a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#af-magic">af-magic</a></p>
 
     </div>
 
@@ -239,7 +257,6 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag"># 碎碎念</a>
-              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"># 总结</a>
           </div>
 
         
@@ -248,12 +265,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/06/14/2023-06-14-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="prev" title="Github pages + jekyll 博客搭建">
-      <i class="fa fa-chevron-left"></i> Github pages + jekyll 博客搭建
+    <a href="/2023/06/15/2023-06-15-%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95/" rel="prev" title="找工记录">
+      <i class="fa fa-chevron-left"></i> 找工记录
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/06/15/2023-06-15-%E6%89%BE%E5%B7%A5%E8%AE%B0%E5%BD%95/" rel="next" title="找工记录">
-      找工记录 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/10/03/2023-10-03-go%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%86%E6%9E%90/" rel="next" title="go语言函数传参分析">
+      go语言函数传参分析 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -313,7 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part1-courses-exams"><span class="nav-number">1.</span> <span class="nav-text">Part1: courses &amp; exams</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part2-coding"><span class="nav-number">2.</span> <span class="nav-text">Part2: coding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part3-future-thinking"><span class="nav-number">3.</span> <span class="nav-text">Part3: future &amp; thinking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">4.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fish%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">fish的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fish%E5%B9%BF%E4%B8%BA%E8%AF%9F%E7%97%85%E7%9A%84%E7%BC%BA%E7%82%B9%EF%BC%9A%E4%B8%8D%E5%85%BC%E5%AE%B9bash%EF%BC%81"><span class="nav-number">2.</span> <span class="nav-text">fish广为诟病的缺点：不兼容bash！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zsh%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">zsh的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Oh-my-zsh%E5%AE%89%E8%A3%85"><span class="nav-number">3.0.1.</span> <span class="nav-text">Oh my zsh安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">3.0.2.</span> <span class="nav-text">自动补全插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE%E6%8F%92%E4%BB%B6"><span class="nav-number">3.0.3.</span> <span class="nav-text">语法高亮插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E4%B8%BB%E9%A2%98%EF%BC%9A"><span class="nav-number">3.0.4.</span> <span class="nav-text">字体主题：</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
