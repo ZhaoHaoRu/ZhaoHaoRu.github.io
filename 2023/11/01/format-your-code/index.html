@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/tea.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/tea.png">
+  <link rel="mask-icon" href="./images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="./css/main.css">
+
+
+<link rel="stylesheet" href="./lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhaohaoru.github.io","root":"./","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Format your C++  code now!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Format your code">
+<meta property="og:url" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/index.html">
+<meta property="og:site_name" content="Haoru&#39;s blog">
+<meta property="og:description" content="Format your C++  code now!">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//image-20231101170556256.png">
+<meta property="og:image" content="https://resources.jetbrains.com/help/img/idea/2023.2/cl_clangformat_switcherenable.png">
+<meta property="og:image" content="https://resources.jetbrains.com/help/img/idea/2023.2/cl_clangformat_settings.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//cl_clangformat_createconfig.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//cl_commit_reformat-8854193.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//image-20231101203344593.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//app.actions.intentionBulb_dark.svg">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//image-20231101193357441.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//image-20231101193721751.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//app.actions.edit_dark.svg">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//image-20231101193907927.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//cl_edit_clang_tidy.png">
+<meta property="og:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//cl_create_clang_tidy.png">
+<meta property="article:published_time" content="2023-10-31T16:00:00.000Z">
+<meta property="article:author" content="Haoru Zhao">
+<meta property="article:tag" content="Tool Rust C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhaohaoru.github.io/2023/11/01/format-your-code/.io//image-20231101170556256.png">
+
+<link rel="canonical" href="https://zhaohaoru.github.io/2023/11/01/format-your-code/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Format your code | Haoru's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="./" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Haoru's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="./" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="./about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="./tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="./archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/ZhaoHaoRu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhaohaoru.github.io/2023/11/01/format-your-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="./images/avatar.jpg">
+      <meta itemprop="name" content="Haoru Zhao">
+      <meta itemprop="description" content="Word is cheap, show me your code.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Haoru's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Format your code
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-01 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-01T00:00:00+08:00">2023-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-02 09:12:11" itemprop="dateModified" datetime="2023-11-02T09:12:11+08:00">2023-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Format your C++  code now!</p>
+<span id="more"></span>
+
+<p>Code formatting plays a crucial role in software development. Properly formatted code offers better readability, consistency, and understandability, leading to efficient collaboration among developers. It aids in debugging and troubleshooting, enhances version control and code maintenance, and reduces the likelihood of introducing errors. </p>
+<p>Sometimes, developers tend to overlook the importance of code formatting. For example, there are almost no mandatory checks on coding style in all undergraduate labs and projects. When we usually write code, we all know that we need to obey a certain code style specifications, such as Google style, but this is actually due to programmer self-restraint. Programmer’s negligence and continuous iteration of code can easily lead to rule violations. So here you need the help of some tools.</p>
+<h2 id="C-Using-clang-format-clang-tidy"><a href="#C-Using-clang-format-clang-tidy" class="headerlink" title="C++: Using clang-format &amp; clang-tidy"></a>C++: Using clang-format &amp; clang-tidy</h2><h3 id="clang-format"><a href="#clang-format" class="headerlink" title="clang-format"></a>clang-format</h3><p>clang-format is a command-line tool and part of the Clang compiler project. It is designed to automatically format C, C++, and other programming language code according to a specified coding style. </p>
+<h4 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h4><ol>
+<li><p>Installation</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install clang-format</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In order to format our code, we need a configuration file <code>.clang-format</code>. This file could be generated from some pre-configured styles.</p>
+<p>To generate <code>.clang-format</code> from style <code>llvm</code>, run the following command in the terminal.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang-format -style=llvm -dump-config &gt; .clang-format</span><br></pre></td></tr></table></figure>
+
+<p>Other candidate styles include <code>google</code>, <code>chromium</code>, <code>mozilla</code>, <code>webkit</code>, <code>microsoft</code>.</p>
+<p>We could further modify the <code>.clang-format</code> file using our preferences. Below is my modified format file. More style examples could be found from <a target="_blank" rel="noopener" href="https://clang.llvm.org/docs/ClangFormatStyleOptions.html#">Clang documentations</a>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">Language:        Cpp</span><br><span class="line"># BasedOnStyle:  LLVM</span><br><span class="line">AccessModifierOffset: -4 # -2</span><br><span class="line">AlignAfterOpenBracket: Align</span><br><span class="line">AlignConsecutiveAssignments: false</span><br><span class="line">AlignConsecutiveDeclarations: false</span><br><span class="line">AlignEscapedNewlines: Right</span><br><span class="line">AlignOperands:   true</span><br><span class="line">AlignTrailingComments: true</span><br><span class="line">AllowAllParametersOfDeclarationOnNextLine: true</span><br><span class="line">AllowShortBlocksOnASingleLine: false</span><br><span class="line">AllowShortCaseLabelsOnASingleLine: false</span><br><span class="line">AllowShortFunctionsOnASingleLine: All</span><br><span class="line">AllowShortIfStatementsOnASingleLine: false</span><br><span class="line">AllowShortLoopsOnASingleLine: false</span><br><span class="line">AlwaysBreakAfterDefinitionReturnType: None</span><br><span class="line">AlwaysBreakAfterReturnType: None</span><br><span class="line">AlwaysBreakBeforeMultilineStrings: false</span><br><span class="line">AlwaysBreakTemplateDeclarations: true # false</span><br><span class="line">BinPackArguments: true</span><br><span class="line">BinPackParameters: true</span><br><span class="line">BraceWrapping:   </span><br><span class="line">  AfterClass:      true # false</span><br><span class="line">  AfterControlStatement: true # false</span><br><span class="line">  AfterEnum:       true # false</span><br><span class="line">  AfterFunction:   true # false</span><br><span class="line">  AfterNamespace:  true # false</span><br><span class="line">  AfterObjCDeclaration: true # false</span><br><span class="line">  AfterStruct:     true # false</span><br><span class="line">  AfterUnion:      true # false</span><br><span class="line">  AfterExternBlock: true # false</span><br><span class="line">  BeforeCatch:     true # false</span><br><span class="line">  BeforeElse:      true # false</span><br><span class="line">  IndentBraces:    true # false</span><br><span class="line">  SplitEmptyFunction: true</span><br><span class="line">  SplitEmptyRecord: true</span><br><span class="line">  SplitEmptyNamespace: true</span><br><span class="line">BreakBeforeBinaryOperators: None</span><br><span class="line">BreakBeforeBraces: Allman # Attach</span><br><span class="line">BreakBeforeInheritanceComma: false</span><br><span class="line">BreakBeforeTernaryOperators: true</span><br><span class="line">BreakConstructorInitializersBeforeComma: false</span><br><span class="line">BreakConstructorInitializers: BeforeColon</span><br><span class="line">BreakAfterJavaFieldAnnotations: false</span><br><span class="line">BreakStringLiterals: true</span><br><span class="line">ColumnLimit:     80</span><br><span class="line">CommentPragmas:  &#x27;^ IWYU pragma:&#x27;</span><br><span class="line">CompactNamespaces: false</span><br><span class="line">ConstructorInitializerAllOnOneLineOrOnePerLine: false</span><br><span class="line">ConstructorInitializerIndentWidth: 4</span><br><span class="line">ContinuationIndentWidth: 4</span><br><span class="line">Cpp11BracedListStyle: true</span><br><span class="line">DerivePointerAlignment: false</span><br><span class="line">DisableFormat:   false</span><br><span class="line">ExperimentalAutoDetectBinPacking: false</span><br><span class="line">FixNamespaceComments: true</span><br><span class="line">ForEachMacros:   </span><br><span class="line">  - foreach</span><br><span class="line">  - Q_FOREACH</span><br><span class="line">  - BOOST_FOREACH</span><br><span class="line">IncludeBlocks:   Preserve</span><br><span class="line">IncludeCategories: </span><br><span class="line">  - Regex:           &#x27;^&quot;(llvm|llvm-c|clang|clang-c)/&#x27;</span><br><span class="line">    Priority:        2</span><br><span class="line">  - Regex:           &#x27;^(&lt;|&quot;(gtest|gmock|isl|json)/)&#x27;</span><br><span class="line">    Priority:        3</span><br><span class="line">  - Regex:           &#x27;.*&#x27;</span><br><span class="line">    Priority:        1</span><br><span class="line">IncludeIsMainRegex: &#x27;(Test)?$&#x27;</span><br><span class="line">IndentCaseLabels: true # false</span><br><span class="line">IndentPPDirectives: None</span><br><span class="line">IndentWidth:   4  #2</span><br><span class="line">....</span><br><span class="line">Standard:        Cpp11</span><br><span class="line">TabWidth:        8</span><br><span class="line">UseTab:          Never</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ColumnLimit: Sets the maximum line length, usually specified in terms of the number of characters per line.</li>
+<li>Standard: Specifies the C++ language standard to follow (in this case, C++11).</li>
+</ul>
+</li>
+<li><p>Run Code Formatting: Clang-Format could format a single file or all files with the same file extension. For example, to format <code>.cpp</code> extension, run the following command in the terminal.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang-format -i *.cpp</span><br></pre></td></tr></table></figure>
+
+<p>To format all <code>.h</code>, <code>.c</code>, <code>.hpp</code>, <code>.cpp</code>, <code>.cu</code> files together, run the following command in the terminal.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -regex &#x27;.*\.\(cpp\|hpp\|cu\|c\|h\)&#x27; -exec clang-format -style=file -i &#123;&#125; \;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="CLion-Integration"><a href="#CLion-Integration" class="headerlink" title="CLion Integration"></a>CLion Integration</h4><p>In CLion, we can use ClangFormat as an alternative to the built-in code formatter.</p>
+<p><img src="./.io//image-20231101170556256.png" alt="image-20231101170556256"></p>
+<p><strong>.clang-format</strong> files with formatting conventions should be placed in the project tree. Each of them applies to code files at the same level and in the subdirectories. Having multiple <strong>.clang-format</strong> files for a single project lets you, if needed, use different styles for different code folders.</p>
+<p>Step:</p>
+<ul>
+<li><p>While in a <strong>.h</strong>, <strong>.c</strong>, or <strong>.cpp</strong> file, click Enable ClangFormat from the code formatting switcher in the status bar:</p>
+<p><img src="https://resources.jetbrains.com/help/img/idea/2023.2/cl_clangformat_switcherenable.png" alt="Enable ClangFormat from the code style switcher"></p>
+</li>
+<li><p>Alternatively, select the Enable ClangFormat checkbox in Settings | Editor | Code Style:</p>
+<p><img src="https://resources.jetbrains.com/help/img/idea/2023.2/cl_clangformat_settings.png" alt="Enable ClangFormat in the code style settings dialog">If there is no <strong>.clang-format</strong> file under the project root, CLion will suggest creating it based on the current IDE code style settings. If you refuse, then ClangFormat will be enabled with the default LLVM style.</p>
+</li>
+</ul>
+<p><img src="./.io//cl_clangformat_createconfig.png" alt="Create .clang-format from the current code style"></p>
+<ul>
+<li><p>After you enable ClangFormat, the appropriate formatting will be applied when you:</p>
+<ul>
+<li><p>type in the editor (which includes indentation after Enter or Backspace, auto-completion, code generation, refactorings, and quick-fixes);</p>
+</li>
+<li><p>call Code | Reformat Code <code>⌘Сmd</code> <code>⌥Opt</code> <code>L</code> - this action also lets you reformat a selection of code instead of the whole file;</p>
+</li>
+<li><p>commit changes and select Reformat Code as the Before commit action:</p>
+<p><img src="./.io//cl_commit_reformat-8854193.png" alt="reformat code before commit"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="CMake-Integration"><a href="#CMake-Integration" class="headerlink" title="CMake Integration"></a>CMake Integration</h4><blockquote>
+<p>Discussion: integrating clang format with your build system, is it a bad idea?</p>
+<p><a target="_blank" rel="noopener" href="https://www.reddit.com/r/cpp/comments/b2hshf/how_do_you_integrate_clang_format_with_your_build/">https://www.reddit.com/r/cpp/comments/b2hshf/how_do_you_integrate_clang_format_with_your_build/</a></p>
+<p>but here I just regard <code>clang-format</code> as a build option to have a quick formatting check, like <code>make format</code></p>
+</blockquote>
+<ul>
+<li><p>Create a <code>.clang-format</code> file in the root directory of your project. Set the desired formatting rules in this file according to your coding style preferences.</p>
+</li>
+<li><p>In your CMakeLists.txt file, add a custom target that runs Clang-format as a check, like this:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_program</span>(CLANG_FORMAT_EXECUTABLE NAMES clang-format)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(CLANG_FORMAT_EXECUTABLE)</span><br><span class="line">    <span class="keyword">file</span>(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">add_custom_target</span>(format</span><br><span class="line">            <span class="keyword">COMMAND</span> <span class="variable">$&#123;CLANG_FORMAT_EXECUTABLE&#125;</span> -style=<span class="keyword">file</span> -i <span class="variable">$&#123;ALL_SOURCE_FILES&#125;</span></span><br><span class="line">            COMMENT <span class="string">&quot;Running Clang-format&quot;</span></span><br><span class="line">            VERBATIM</span><br><span class="line">            )</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Explain: The <code>if(CLANG_FORMAT_EXECUTABLE)</code> statement checks if the <code>clang-format</code> executable was found. If it exists, the code inside the <code>if</code> block is executed.</p>
+<p>Inside the block, the <code>file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h)</code> command uses the <code>GLOB_RECURSE</code> option to recursively find all source files in the project with the extensions <code>.cpp</code> and <code>.h</code>. The found files are stored in the variable <code>ALL_SOURCE_FILES</code>.</p>
+<p>The <code>add_custom_target(format ...)</code> command creates a custom target named <code>format</code>. </p>
+</blockquote>
+</li>
+<li><p>You can also add the <code>format</code> target as a dependency of your main build target. This ensures that Clang-format checks are performed whenever you build your project. (a bad idea?)</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(myapp <span class="variable">$&#123;SOURCE_FILES&#125;</span>)</span><br><span class="line"><span class="keyword">add_dependencies</span>(myapp format)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="clang-tidy"><a href="#clang-tidy" class="headerlink" title="clang-tidy"></a>clang-tidy</h3><p><strong>Clang-tidy</strong> is a clang-based C++ static code analysis tool. Its purpose is to provide an extensible framework for diagnosing and fixing typical programming errors, like style violations, interface misuse, or bugs that can be deduced via static analysis. <strong>clang-tidy</strong> is modular and provides a convenient interface for writing new checks.</p>
+<blockquote>
+<p>Here’s a comparison of Clang-tidy and Clang-format:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Clang-tidy</th>
+<th>Clang-format</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Purpose</td>
+<td>Static analysis tool</td>
+<td>Code formatting tool</td>
+</tr>
+<tr>
+<td>Function</td>
+<td>Detects code issues and bugs</td>
+<td>Applies consistent formatting to code</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>Identifies potential bugs and code smells</td>
+<td>N&#x2F;A</td>
+</tr>
+<tr>
+<td>Stylistic Issues</td>
+<td>Provides suggestions for code improvements</td>
+<td>Automatically formats code according to rules</td>
+</tr>
+<tr>
+<td>Language Support</td>
+<td>C, C++, Objective-C</td>
+<td>C, C++, Objective-C</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>Build process, IDEs, text editors</td>
+<td>Build process, IDEs, text editors</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h4 id="Basic-Usage-1"><a href="#Basic-Usage-1" class="headerlink" title="Basic Usage"></a>Basic Usage</h4><ol>
+<li><p>Installation(unchecked, maybe need specify version)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install clang clang-tidy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>navigate to the directory containing your source code and run the following command to analyze your code with Clang-tidy</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang-tidy [source_file(s)] [OPTIONS]</span><br></pre></td></tr></table></figure>
+
+<p>Replace <code>[source_file(s)]</code> with the path or paths to the source file(s) you want to analyze. You can specify multiple source files separated by spaces. If you want to analyze an entire project or a directory, you can use wildcards (e.g., <code>*.cpp</code>, <code>**/*.cpp</code>).</p>
+<p>You can also provide additional options specific to Clang-tidy. For example, <code>-checks=*</code> will enable all available checks</p>
+</li>
+<li><p>Once you run the <code>clang-tidy</code> command, Clang-tidy will analyze your code based on the specified checks and provide warnings or suggestions for improvements. The output will be displayed in the terminal or command prompt.</p>
+</li>
+</ol>
+<p><img src="./.io//image-20231101203344593.png" alt="image-20231101203344593"></p>
+<h4 id="CLion-Integration-1"><a href="#CLion-Integration-1" class="headerlink" title="CLion Integration"></a>CLion Integration</h4><p>CLion shows Clang-Tidy checks the same way as its own code inspections, with quick-fixes available via the <img src="./.io//app.actions.intentionBulb_dark.svg" alt="the Yellow bulb icon">-button or <code>⌥Opt</code> <code>↩</code>Enter:</p>
+<p><img src="./.io//image-20231101193357441.png" alt="image-20231101193357441"></p>
+<ol>
+<li><p>To adjust the Clang-Tidy configuration, go to Settings | Editor | Inspections | C&#x2F;C++ | Static Analysis Tools | Clang-Tidy:</p>
+<p><img src="./.io//image-20231101193721751.png" alt="image-20231101193721751"></p>
+</li>
+<li><p>Note that not all the checks are enabled by default, Click <img src="./.io//app.actions.edit_dark.svg" alt="App actions edit"> to open the dialog where you can edit the list of checks:</p>
+<p><img src="./.io//image-20231101193907927.png" alt="image-20231101193907927"></p>
+</li>
+<li><p>With <strong>.clang-tidy</strong> files, you can set per-directory configurations: for each source file, Clang-Tidy will attempt to read configuration from <strong>.clang-tidy</strong> in the closest parent directory. To open the <strong>.clang-tidy</strong> configuration file used by the current source file, select Edit clang-tidy file for <current file> in the widget on the status bar:</current></p>
+<p>To open the <strong>.clang-tidy</strong> configuration file used by the current source file, select Edit clang-tidy file for <current file> in the widget on the status bar:</current></p>
+<p><img src="./.io//cl_edit_clang_tidy.png" alt="Edit .clang-tidy file"></p>
+<p>If there’s no <strong>.clang-tidy</strong> configuration available for the currently opened source file, you can create one by selecting Create .clang-tidy file in the widget:</p>
+<p><img src="./.io//cl_create_clang_tidy.png" alt="Create a .clang-tidy file"></p>
+<p>The new file will include settings configured in Settings | Editor | Inspections | C&#x2F;C++ - Static Analysis Tools - Clang-Tidy.</p>
+</li>
+</ol>
+<h4 id="CMake-Integration-1"><a href="#CMake-Integration-1" class="headerlink" title="CMake Integration"></a>CMake Integration</h4><ol>
+<li><p>Make sure Clang-tidy is installed on your system.</p>
+</li>
+<li><p>In your CMakeLists.txt file, add the following lines:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_EXPORT_COMPILE_COMMANDS <span class="keyword">ON</span>)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">set</span>(CLANG_SEARCH_PATH <span class="string">&quot;/usr/local/bin&quot;</span> <span class="string">&quot;/usr/bin&quot;</span> <span class="string">&quot;/usr/local/opt/llvm/bin&quot;</span> <span class="string">&quot;/usr/local/opt/llvm@14/bin&quot;</span></span><br><span class="line">        <span class="string">&quot;/opt/homebrew/opt/llvm@14/bin/&quot;</span>)</span><br><span class="line"><span class="keyword">find_program</span>(CLANG_TIDY_BIN</span><br><span class="line">        NAMES clang-tidy clang-tidy-<span class="number">14</span></span><br><span class="line">        HINTS <span class="variable">$&#123;CLANG_SEARCH_PATH&#125;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(CLANG_TIDY_BIN)</span><br><span class="line">    <span class="keyword">set</span>(DO_CLANG_TIDY <span class="string">&quot;$&#123;CLANG_TIDY_BIN&#125;;-checks=*;-header-filter=$&#123;CMAKE_SOURCE_DIR&#125;/include/.*&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Apply Clang-tidy to specified targets</span></span><br><span class="line">    <span class="keyword">add_custom_target</span>(clang-tidy</span><br><span class="line">            <span class="keyword">COMMAND</span> <span class="variable">$&#123;DO_CLANG_TIDY&#125;</span></span><br><span class="line">            COMMENT <span class="string">&quot;Running Clang-tidy&quot;</span></span><br><span class="line">            VERBATIM</span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>On my laptop, which installed llvm by homebrew, has to find clang-tidy installation path manually</li>
+<li>If the build process did not generate a compilation database (The primary purpose of the compilation database is to provide accurate compilation environment information to code analysis tools like clang-tidy or Clangd), clang-tidy won’t be able to find it. Ensure that you have enabled the generation of compilation database in your build system.</li>
+</ul>
+</li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://leimao.github.io/blog/Clang-Format-Quick-Tutorial/">https://leimao.github.io/blog/Clang-Format-Quick-Tutorial/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://clang.llvm.org/docs/ClangFormat.html">https://clang.llvm.org/docs/ClangFormat.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/clangformat-as-alternative-formatter.html">https://www.jetbrains.com/help/clion/clangformat-as-alternative-formatter.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html#:~:text=Its%20purpose%20is%20to%20provide,interface%20for%20writing%20new%20checks">https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html#:~:text=Its%20purpose%20is%20to%20provide,interface%20for%20writing%20new%20checks</a>.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/clang-tidy-checks-support.html">https://www.jetbrains.com/help/clion/clang-tidy-checks-support.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gist.github.com/sleepdefic1t/e9bdb1a66b05aa043ab9a2ab6c929509">https://gist.github.com/sleepdefic1t/e9bdb1a66b05aa043ab9a2ab6c929509</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="./tags/Tool-Rust-C/" rel="tag"># Tool Rust C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="./2023/10/03/2023-10-03-go%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E5%88%86%E6%9E%90/" rel="prev" title="go语言函数传参分析">
+      <i class="fa fa-chevron-left"></i> go语言函数传参分析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="./2023/11/01/2023-11-01-format-your-code/" rel="next" title="Format your code">
+      Format your code <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-Using-clang-format-clang-tidy"><span class="nav-number">1.</span> <span class="nav-text">C++: Using clang-format &amp; clang-tidy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clang-format"><span class="nav-number">1.1.</span> <span class="nav-text">clang-format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-Usage"><span class="nav-number">1.1.1.</span> <span class="nav-text">Basic Usage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLion-Integration"><span class="nav-number">1.1.2.</span> <span class="nav-text">CLion Integration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMake-Integration"><span class="nav-number">1.1.3.</span> <span class="nav-text">CMake Integration</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clang-tidy"><span class="nav-number">1.2.</span> <span class="nav-text">clang-tidy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-Usage-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Basic Usage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLion-Integration-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">CLion Integration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMake-Integration-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">CMake Integration</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">2.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Haoru Zhao"
+      src="./images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Haoru Zhao</p>
+  <div class="site-description" itemprop="description">Word is cheap, show me your code.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="./archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="./tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhaoHaoRu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ZhaoHaoRu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="./zhaohaoru@sjtu.edu.cn" title="E-Mail → zhaohaoru@sjtu.edu.cn"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Haoru Zhao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="./lib/anime.min.js"></script>
+  <script src="./lib/velocity/velocity.min.js"></script>
+  <script src="./lib/velocity/velocity.ui.min.js"></script>
+
+<script src="./js/utils.js"></script>
+
+<script src="./js/motion.js"></script>
+
+
+<script src="./js/schemes/pisces.js"></script>
+
+
+<script src="./js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"./live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
