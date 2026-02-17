@@ -216,26 +216,28 @@ keep_files:
 
 # Plug-ins
 plugins:
-  - jekyll-3rd-party-libraries
-  - jekyll-archives-v2
-  - jekyll-cache-bust
-  - jekyll-email-protect
+  # GitHub Pages supported plugins only
   - jekyll-feed
-  - jekyll-get-json
-  - jekyll-imagemagick
-  - jekyll-jupyter-notebook
-  - jekyll-link-attributes
-  - jekyll-minifier
-  - jekyll-paginate-v2
-  - jekyll-regex-replace
-  - jekyll/scholar
   - jekyll-sitemap
-  - jekyll-socials
-  - jekyll-tabs
-  - jekyll-terser
-  - jekyll-toc
-  - jekyll-twitter-plugin
   - jemoji
+  # Uncomment below when using custom GitHub Actions (not GitHub Pages default)
+  # - jekyll-3rd-party-libraries
+  # - jekyll-archives-v2
+  # - jekyll-cache-bust
+  # - jekyll-email-protect
+  # - jekyll-get-json
+  # - jekyll-imagemagick
+  # - jekyll-jupyter-notebook
+  # - jekyll-link-attributes
+  # - jekyll-minifier
+  # - jekyll-paginate-v2
+  # - jekyll-regex-replace
+  # - jekyll/scholar
+  # - jekyll-socials
+  # - jekyll-tabs
+  # - jekyll-terser
+  # - jekyll-toc
+  # - jekyll-twitter-plugin
 
 # Sitemap settings
 defaults:
