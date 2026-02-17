@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://ZhaoHaoRu.github.io/sitemap.xml
