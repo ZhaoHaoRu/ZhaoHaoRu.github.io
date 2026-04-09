@@ -137,14 +137,7 @@
         </span>
       {% endif %}
       {% if entry.annotation %}
-        <i
-          class="fa-solid fa-circle-info ml-1"
-          data-toggle="popover"
-          data-placement="top"
-          data-html="true"
-          data-content="{{ entry.annotation | escape }}"
-        >
-        </i>
+        <span class="font-italic font-weight-light ml-1">({{ entry.annotation }})</span>
       {% endif %}
     </div>
 
