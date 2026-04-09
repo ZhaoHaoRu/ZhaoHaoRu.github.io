@@ -32,8 +32,7 @@ experiences:
 #   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am Haoru Zhao (赵浩如), currently a Master's student at the [IPADS](https://ipads.se.sjtu.edu.cn/) Lab, Shanghai Jiao Tong University (SJTU). 
-I will start my PhD in April 2026, continuing my research under the supervision of Prof. Mingkai Dong and Prof. Haibo Chen. 
+I am Haoru Zhao (赵浩如), currently a first-year PhD student at the [IPADS](https://ipads.se.sjtu.edu.cn/) Lab, Shanghai Jiao Tong University (SJTU), under the supervision of Prof. Mingkai Dong and Prof. Haibo Chen.
 
 My research focuses on computer storage systems, with a particular emphasis on storage optimizations for Large Model  training and inference, as well as index optimization.
 
